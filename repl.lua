@@ -1,5 +1,31 @@
+-- mostly based on repl.lua from Fengari itself:
+-- https://github.com/fengari-lua/fengari.io/blob/master/static/lua/web-cli.lua
 local js = require "js"
-fennel = require "fennel"
+_G.fennel = require "fennel"
+
+local eval = _G.fennel.eval
+local welcome = "Welcome to Fennel, running on Fengari 0.1.1 (Lua 5.3.4)"
+
+-- the hacks below are needed specifically to get the Fennel test suite to pass
+
+-- just make a few things not blow up
+_G.os.exit = function() end
+_G.os.getenv = function() end
+
+-- require-macros depends on io.open; we splice in a hacky replacement
+io={open=function(filename)
+       return {
+          read = function(_, all)
+             assert(all=="*all", "Can only read *all.")
+             local xhr = js.new(js.global.XMLHttpRequest)
+             xhr:open("GET", filename, false)
+             xhr:send()
+             assert(xhr.status == 200, xhr.status .. ": " .. xhr.statusText)
+             return tostring(xhr.response)
+          end,
+          close = function() end,
+       }
+end}
 
 package.path = "./?.lua"
 package.preload.fennelview = assert(loadfile("fennelview.lua"))
@@ -78,7 +104,7 @@ local function doREPL()
         end
     end
 
-    local results = {xpcall(function() return fennel.eval(line) end, traceback)}
+    local results = {xpcall(function() return eval(line) end, traceback)}
     if results[1] then
         if #results > 1 then
             for i=2,#results do results[i] = fennelview(results[i]) end
@@ -136,13 +162,9 @@ function input:onkeydown(e)
         and not e.isComposing then
         -- Ctrl+L clears screen like you would expect in a terminal
         output.innerHTML = ""
-        _G.print(_G._COPYRIGHT)
+        _G.print(welcome)
         return false
     end
 end
 
-function input:onfocus()
-    output.style.height = "300px"
-end
-
-_G.print(_G._COPYRIGHT)
+_G.print(welcome)
