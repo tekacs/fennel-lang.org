@@ -11,6 +11,7 @@
               [:head {}
                [:meta {:charset "UTF-8"}]
                [:script {:src "fengari-web.js"}]
+               [:script {:type "application/lua" :src "repl.lua" :async true}]
                [:link {:rel "stylesheet" :href "fennel.css"}]
                [:link {:rel "stylesheet"
                        :href "https://code.cdn.mozilla.net/fonts/fira.css"}]
@@ -102,9 +103,7 @@
                [:hr {}]
                [:p {} "Fennel is copyright &copy; 2016-2018 Calvin Rose and "
                 [:a {:href "https://github.com/bakpakin/Fennel/graphs/contributors"}
-                 "contributors; released under the MIT license. "]
+                 "contributors."] "released under the MIT license. "
                 "This website is under the same terms and also developed on"
-                [:a {:href "https://github.com/technomancy/fennel-lang.org"
-                     "GitHub."}]]
-               [:script {:type "application/lua" :src "repl.lua" :async true}]
-               ]]))
+                [:a {:href "https://github.com/technomancy/fennel-lang.org"}
+                 "GitHub."]]]]))
