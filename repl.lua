@@ -1,6 +1,7 @@
 -- mostly based on repl.lua from Fengari itself:
 -- https://github.com/fengari-lua/fengari.io/blob/master/static/lua/web-cli.lua
 local js = require "js"
+package.path = "./?.lua"
 _G.fennel = require "fennel"
 
 local eval = _G.fennel.eval
@@ -27,7 +28,6 @@ io={open=function(filename)
        }
 end}
 
-package.path = "./?.lua"
 package.preload.fennelview = assert(loadfile("fennelview.lua"))
 package.preload.generate = assert(loadfile("generate.lua"))
 
