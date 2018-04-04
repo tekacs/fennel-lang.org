@@ -1,0 +1,63 @@
+body {
+    font-family: "Fira Sans";
+    margin: 40px auto;
+    max-width: 800px;
+    line-height: 1.6;
+    font-size: 18px;
+    color: #444;
+    padding: 0 10px;
+}
+
+h1 { text-align: center; }
+
+tt, pre, code, kbd { font-family: "Fira Mono"; }
+
+#where li { display: inline; margin: 2em; }
+
+.repl {
+    font-size: 12px;
+    text-shadow: none;
+    color: #333;
+    background: #f8f8f8;
+    padding: 0;
+    text-align: left;
+    margin: 50px auto;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    width: 100%;
+}
+
+#fengari-console {
+    height: 60px;
+    overflow-y: scroll;
+    padding: 11px 16px;
+    display: block;
+}
+
+#fengari-console pre {
+    margin: 0;
+}
+
+.fengari-input-container {
+    display: flex;
+}
+
+.fengari-input-container > * {
+    outline: none;
+    border: none;
+    white-space: pre-wrap;
+    font-family: monospace;
+    color: #444;
+    background: #f0f0f0;
+    min-height: 14px; /* minimum one line */
+    padding: 10px;
+    margin: 0;
+    border-radius: 0 0 3px 3px;
+    border-top: 1px solid #ddd;
+}
+
+#fengari-input {
+    flex: 1;
+    font-size: 12px;
+    padding-left: 0;
+}
