@@ -10,6 +10,9 @@ body {
 
 h1 { text-align: center; }
 
+a { color: #0d98ba; }
+a:hover { color: #0c7090; }
+
 tt, pre, code, kbd { font-family: "Fira Mono"; }
 
 #where li { display: inline; margin: 2em; }
