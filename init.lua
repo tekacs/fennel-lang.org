@@ -1,8 +1,8 @@
 -- mostly based on repl.lua from Fengari itself:
 -- https://github.com/fengari-lua/fengari.io/blob/master/static/lua/web-cli.lua
-js = require "js"
 package.path = "./?.lua"
-_G.fennel = require "fennel"
+local js = require "js"
+local fennel = require "fennel"
 
 local welcome = "Welcome to Fennel, running on Fengari 0.1.1 (Lua 5.3.4)"
 
@@ -30,18 +30,14 @@ end}
 package.preload.fennelview = assert(loadfile("fennelview.lua"))
 package.preload.generate = assert(loadfile("generate.lua"))
 
-local fennelview = require "fennelview"
-
 local repl = coroutine.create(fennel.dofile("repl.fnl"))
 
 coroutine.resume(repl)
 
 -- Save references to lua baselib functions used
 local _G = _G
-local pack, unpack = table.pack, table.unpack
+local pack = table.pack
 local tostring = tostring
-local traceback = debug.traceback
-local xpcall = xpcall
 
 local document = js.global.document
 local output = document:getElementById("fengari-console")
@@ -64,6 +60,25 @@ _G.print = function(...)
 
     local line = document:createElement("pre")
     line.style["white-space"] = "pre-wrap"
+    output:appendChild(line)
+
+    for i = 1, toprint.n do
+        if i ~= 1 then
+            line:appendChild(document:createTextNode("\t"))
+        end
+        line:appendChild(document:createTextNode(tostring(toprint[i])))
+    end
+
+    output.scrollTop = output.scrollHeight
+    triggerEvent(output, "change")
+end
+
+_G.bprint = function(...)
+    local toprint = pack(...)
+
+    local line = document:createElement("pre")
+    line.style["white-space"] = "pre-wrap"
+    line.style.color = "blue"
     output:appendChild(line)
 
     for i = 1, toprint.n do
@@ -135,3 +150,4 @@ function input.onkeydown(_, e)
 end
 
 _G.print(welcome)
+_G.bprint("You can run any Fennel code here; try this: (print \"Hello, world!\")")

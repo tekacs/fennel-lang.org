@@ -1,6 +1,71 @@
+(local js (require "js"))
+(local fennel (require "fennel"))
+(local log (fn [...] (: js.global.console :log ...)))
+
+(local env (setmetatable {:js js :fennel fennel :log log}
+                         {:__index _G}))
+
+(var last-input nil)
+(var last-value nil)
+
+(local progress {})
+
+(defn ok [key msg]
+  (bprint msg)
+  (tset progress key true))
+
+(defn tutorial-fn []
+  (while (not progress.print)
+    (coroutine.yield)
+    (if (= (: last-input :lower) "(print \"hello, world!\")")
+        (ok :print "Very good; that's the idea.")
+        (: last-input :find "%(print")
+        (ok :print "Well, not exactly what I had in mind, but close enough.")
+        :else nil))
+
+  (bprint "How about some math; do you like math? Try this: (+ 1 1)")
+  (while (not progress.math)
+    (coroutine.yield)
+    (if (= (: last-input :lower) "(+ 1 1)")
+        (ok :math (.. "Yes, perfect. As you can see, the operator goes first. "
+                      "You'll get used to it."))
+        (and (= last-value "2") (: last-input :find "%(%+"))
+        (ok :math "OK, you've more or less got the idea.")
+        (= last-value "2")
+        (ok :math "Well, the point is you got the right answer.")
+        (: last-value :find "[0-9]+")
+        (bprint "You can do better than that!")
+        :else nil))
+
+  (bprint "Let's try a function now: (global add (fn [x y] (+ x y)))")
+  (while (not progress.fn)
+    (coroutine.yield)
+    (let [ok? (and (= (type env.add) "function") (pcall env.add 1 1))]
+      (if (and ok? (= 10 (env.add 2 8)) (= 5 (env.add 10 -5)))
+          (ok :fn "Not the most useful function to have, but nicely done.")
+          (= (type env.add) "function")
+          (bprint (.. "Well, you defined a function, but it had a problem. "
+                      "Try again?"))
+          (: last-input :find "%(global")
+          (bprint "No, no no; it's supposed to be a function!")
+          :else nil)))
+
+  (bprint "\nListen, that's all I have time for right now unfortunately.")
+  (bprint "There's a bunch more documentation listed below.")
+  (bprint "None of it is fun and interactive, but it's pretty thorough; give it a go.")
+  (bprint "\nHave fun! I hope you like Fennel."))
+
+(local tutorial (coroutine.create tutorial-fn))
+(coroutine.resume tutorial)
+
 (partial fennel.repl {:readChunk (fn []
                                    (let [input (coroutine.yield)]
+                                     (set last-input input)
                                      (print (.. "> " input))
                                      (.. input "\n")))
-                      :onValues (fn [xs] (print (table.concat xs "\t")))
-                      :onError (fn [err x] (: js.global.console :log err x))})
+                      :onValues (fn [xs]
+                                  (print (table.concat xs "\t"))
+                                  (set last-value (. xs 1))
+                                  (coroutine.resume tutorial))
+                      :onError print
+                      :env env})
