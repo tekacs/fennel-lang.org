@@ -1,3 +1,4 @@
+;; static HTML generator for the page
 (local fennel (require "fennel"))
 (table.insert package.loaders fennel.searcher)
 (local html (require "html"))
@@ -59,7 +60,7 @@
 
                [:pre {}
                 [:kbd {} (.. "    $ git clone https://github.com/bakpakin/Fennel"
-                             "\n    $ cd Fennel"
+                             " && cd Fennel"
                              "\n    $ ./fennel --compile code.fnl > code.lua"
                              "\n    $ ./fennel --repl")]]
 

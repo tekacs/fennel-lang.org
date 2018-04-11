@@ -73,7 +73,7 @@ _G.print = function(...)
     triggerEvent(output, "change")
 end
 
-_G.bprint = function(...)
+_G.narrate = function(...)
     local toprint = pack(...)
 
     local line = document:createElement("pre")
@@ -150,4 +150,3 @@ function input.onkeydown(_, e)
 end
 
 _G.print(welcome)
-_G.bprint("You can run any Fennel code here; try this: (print \"Hello, world!\")")

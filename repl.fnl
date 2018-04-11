@@ -5,28 +5,36 @@
 (local env (setmetatable {:js js :fennel fennel :log log}
                          {:__index _G}))
 
+(set env._ENV env)
+
 (var last-input nil)
 (var last-value nil)
 
 (local progress {})
 
+(defn match? [input target]
+  (-> (: input :lower)
+      (: :gsub "^ +" "")
+      (: :gsub " +$" "")
+      (= target)))
+
 (defn ok [key msg]
-  (bprint msg)
+  (narrate msg)
   (tset progress key true))
 
 (defn tutorial-fn []
   (while (not progress.print)
     (coroutine.yield)
-    (if (= (: last-input :lower) "(print \"hello, world!\")")
+    (if (= match? last-input "(print \"hello world!\")")
         (ok :print "Very good; that's the idea.")
         (: last-input :find "%(print")
         (ok :print "Well, not exactly what I had in mind, but close enough.")
         :else nil))
 
-  (bprint "How about some math; do you like math? Try this: (+ 1 1)")
+  (narrate "How about some math; do you like math? Try this: (+ 1 1)")
   (while (not progress.math)
     (coroutine.yield)
-    (if (= (: last-input :lower) "(+ 1 1)")
+    (if (match? last-input "(+ 1 1)")
         (ok :math (.. "Yes, perfect. As you can see, the operator goes first. "
                       "You'll get used to it."))
         (and (= last-value "2") (: last-input :find "%(%+"))
@@ -34,32 +42,39 @@
         (= last-value "2")
         (ok :math "Well, the point is you got the right answer.")
         (: last-value :find "[0-9]+")
-        (bprint "You can do better than that!")
+        (narrate "You can do better than that!")
         :else nil))
 
-  (bprint "Let's try a function now: (global add (fn [x y] (+ x y)))")
+  (narrate "Let's try a function now: (global add (fn [x y] (+ x y)))")
   (while (not progress.fn)
+    (set env.add nil)
     (coroutine.yield)
     (let [ok? (and (= (type env.add) "function") (pcall env.add 1 1))]
       (if (and ok? (= 10 (env.add 2 8)) (= 5 (env.add 10 -5)))
           (ok :fn "Not the most useful function to have, but nicely done.")
           (= (type env.add) "function")
-          (bprint (.. "Well, you defined a function, but it had a problem. "
-                      "Try again?"))
+          (narrate (.. "Well, you defined a function, but it had a problem. "
+                       "Try again?"))
           (: last-input :find "%(global")
-          (bprint "No, no no; it's supposed to be a function!")
+          (narrate "No, no no; it's supposed to be a function!")
           :else nil)))
 
-  (bprint "\nListen, that's all I have time for right now unfortunately.")
-  (bprint "There's a bunch more documentation listed below.")
-  (bprint "None of it is fun and interactive, but it's pretty thorough; give it a go.")
-  (bprint "\nHave fun! I hope you like Fennel."))
+  (narrate "")
+  (narrate "Listen, that's all I have time for right now unfortunately.")
+  (narrate "There's a bunch more documentation listed below.")
+  (narrate (.. "None of it is fun and interactive, but it's pretty thorough; "
+               "give it a go."))
+  (narrate "")
+  (narrate "Have fun! I hope you like Fennel."))
 
 (local tutorial (coroutine.create tutorial-fn))
 (coroutine.resume tutorial)
 
+(narrate "You can run any Fennel code here; try this: (print \"Hello world!\")")
+
 (partial fennel.repl {:readChunk (fn []
                                    (let [input (coroutine.yield)]
+                                     ;; TODO: output pane showing compiled lua
                                      (set last-input input)
                                      (print (.. "> " input))
                                      (.. input "\n")))
@@ -67,5 +82,6 @@
                                   (print (table.concat xs "\t"))
                                   (set last-value (. xs 1))
                                   (coroutine.resume tutorial))
+                      ;; TODO: this is ignored?
                       :onError print
                       :env env})
