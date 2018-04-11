@@ -82,6 +82,5 @@
                                   (print (table.concat xs "\t"))
                                   (set last-value (. xs 1))
                                   (coroutine.resume tutorial))
-                      ;; TODO: this is ignored?
-                      :onError print
+                      :onError (fn [_ msg] (print msg))
                       :env env})

@@ -30,10 +30,6 @@ end}
 package.preload.fennelview = assert(loadfile("fennelview.lua"))
 package.preload.generate = assert(loadfile("generate.lua"))
 
-local repl = coroutine.create(fennel.dofile("repl.fnl"))
-
-coroutine.resume(repl)
-
 -- Save references to lua baselib functions used
 local _G = _G
 local pack = table.pack
@@ -73,6 +69,8 @@ _G.print = function(...)
     triggerEvent(output, "change")
 end
 
+_G.print(welcome)
+
 _G.narrate = function(...)
     local toprint = pack(...)
 
@@ -91,6 +89,10 @@ _G.narrate = function(...)
     output.scrollTop = output.scrollHeight
     triggerEvent(output, "change")
 end
+
+local repl = coroutine.create(fennel.dofile("repl.fnl"))
+
+coroutine.resume(repl)
 
 function input.onkeydown(_, e)
     if not e then
@@ -149,4 +151,3 @@ function input.onkeydown(_, e)
     end
 end
 
-_G.print(welcome)
