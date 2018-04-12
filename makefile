@@ -1,4 +1,4 @@
-index.html: main.fnl ; fennel/fennel main.fnl > index.html
+index.html: main.fnl sample.html ; fennel/fennel main.fnl > index.html
 fennelview.lua: fennel/fennelview.fnl ; fennel/fennel --compile $^ > $@
 generate.lua: fennel/generate.fnl ; fennel/fennel --compile $^ > $@
 

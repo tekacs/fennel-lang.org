@@ -82,5 +82,7 @@
                                   (print (table.concat xs "\t"))
                                   (set last-value (. xs 1))
                                   (coroutine.resume tutorial))
+                      ;; TODO: make errors red
+                      ;; TODO: log errors for analysis?
                       :onError (fn [_ msg] (print msg))
                       :env env})

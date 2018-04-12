@@ -1,0 +1,11 @@
+<pre id="sample" class="code"><span class="comment">;; Sample: read the state of the keyboard and move the player accordingly
+</span>(<span class="keyword">local</span> dirs {<span class="builtin">:up</span> [0 -1] <span class="builtin">:down</span> [0 1] <span class="builtin">:left</span> [-1 0] <span class="builtin">:right</span> [1 0]})
+
+(<span class="keyword">each</span> [key delta (<span class="builtin">pairs</span> dirs)]
+  (<span class="keyword">when</span> (<span class="type">love.keyboard.isDown</span> key)
+    (<span class="keyword">let</span> [[dx dy] delta
+          [px py] player
+          x (<span class="keyword">+</span> px (<span class="keyword">*</span> (<span class="keyword">*</span> dx <span class="type">player.speed</span>) dt))
+          y (<span class="keyword">+</span> py (<span class="keyword">*</span> (<span class="keyword">*</span> dy <span class="type">player.speed</span>) dt))]
+      (<span class="keyword">:</span> world <span class="builtin">:move</span> player x y))))
+</pre>

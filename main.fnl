@@ -47,10 +47,19 @@
                  [:a {:href "https://love2d.org"} "games"]]
                 [:li {} [:a {:href "https://awesomewm.org/"} "window managers"]]
                 [:li {} [:a {:href "https://openresty.org/en/"} "web servers"]]
-                [:li {} [:a {:href "https://redis.io/commands/eval"} "databases"]]
+                [:li {} [:a {:href "https://github.com/pllua/pllua"} "data"]
+                 [:a {:href "https://redis.io/commands/eval"} "bases"]]
                 [:li {} [:a {:href "https://fengari.io"} "web browsers"]]
                 [:li {} [:a {:href "http://www.nodemcu.com/index_en.html"}
                          "$4 microcontrollers"]]]
+
+               ;; TODO: add multiple selection of snippets like python.org
+               ;; maybe we can show lua output for each; see "modal" on
+               ;; http://youmightnotneedjs.com/
+               (let [f (io.open "sample.html" "r")
+                     sample (: f :read "*all")]
+                 (: f :close)
+                 sample)
 
                [:h2 {} "Usage"]
 
@@ -68,8 +77,12 @@
                [:p {} "Fine, you can use Fennel right here without installing"
                 " anything:"]
 
-               [:div {:class "repl"}
+               [:div {:class "code"}
                 [:code {:id "fengari-console"}]
+                [:noscript {}
+                 "There's supposed to be an interactive repl here but it needs"
+                 " scripting to be enabled. You can install Fennel with git if"
+                 " you'd rather not enable scripting; it's cool."]
                 [:div {:class "fengari-input-container"}
                  [:label {:id "fengari-prompt" :for "fengari-input"} "> "]
                  [:textarea {:class "lua" :id "fengari-input" :rows 1

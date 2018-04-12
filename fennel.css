@@ -1,11 +1,10 @@
 body {
-    font-family: "Fira Sans";
+    font-family: "Fira Sans","Helvetica Neue",Helvetica,Calibri,Verdana,sans-serif;
     margin: 40px auto;
-    max-width: 800px;
+    max-width: 44em;
     line-height: 1.6;
-    font-size: 18px;
+    font-size: 14pt;
     color: #444;
-    padding: 0 10px;
 }
 
 h1 { text-align: center; }
@@ -13,47 +12,43 @@ h1 { text-align: center; }
 a { color: #0d98ba; }
 a:hover { color: #0c7090; }
 
-tt, pre, code, kbd { font-family: "Fira Mono"; }
+tt, pre, code, kbd { font-family: "Fira Mono", Inconsolata, monospace; }
 
 #where li { display: inline; margin: 2em; }
 
-.repl {
-    font-size: 12px;
+.code {
+    font-size: 12pt;
     text-shadow: none;
     color: #333;
     background: #f8f8f8;
     padding: 0;
     text-align: left;
-    margin: 50px auto;
+    margin: 3em auto;
     border-radius: 3px;
     border: 1px solid #ddd;
     width: 100%;
 }
 
 #fengari-console {
-    height: 200px;
+    height: 15em;
     overflow-y: scroll;
-    padding: 11px 16px;
+    padding: 1em 1.2em;
     display: block;
 }
 
-#fengari-console pre {
-    margin: 0;
-}
+#fengari-console pre { margin: 0; }
 
-.fengari-input-container {
-    display: flex;
-}
+.fengari-input-container { display: flex; }
 
 .fengari-input-container > * {
     outline: none;
     border: none;
     white-space: pre-wrap;
-    font-family: monospace;
+    font-family: "Fira Mono", Inconsolata, monospace;
     color: #444;
     background: #f0f0f0;
-    min-height: 14px; /* minimum one line */
-    padding: 10px;
+    min-height: 1em;
+    padding: 1em;
     margin: 0;
     border-radius: 0 0 3px 3px;
     border-top: 1px solid #ddd;
@@ -61,6 +56,15 @@ tt, pre, code, kbd { font-family: "Fira Mono"; }
 
 #fengari-input {
     flex: 1;
-    font-size: 12px;
+    font-size: 10pt;
     padding-left: 0;
 }
+
+/* code sample */
+#sample { font-size: 12pt; padding: 1em 1.5em; }
+#sample .builtin {/* font-lock-builtin-face */ color: #483d8b;}
+#sample .keyword {/* font-lock-keyword-face */ color: #a020f0;}
+#sample .string {/* font-lock-string-face */ color: #8b2252;}
+#sample .type {/* font-lock-type-face */ color: #228b22;}
+#sample .variable-name {/* font-lock-variable-name-face */ color: #a0522d;}
+#sample .comment {/* font-lock-comment-face */ color: #b22222;}
