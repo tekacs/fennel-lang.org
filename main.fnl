@@ -38,18 +38,20 @@
                  " and are not included in the output code."]
                 [:li {} [:b {} "Embeddable:"] "Fennel is a library as well as "
                  "an executable. Embed it in other programs to support runtime "
-                 "extendability and interactive development."]]
+                 "extensibility and interactive development."]]
 
                [:p {} "Anywhere you can run Lua code, you can run Fennel code."]
 
                [:ul {:id "where"}
-                [:li {} [:a {:href "https://luacraft.com/"} "video"]
+                [:li {} [:a {:href "https://minetest.net/"} "video"]
                  [:a {:href "https://love2d.org"} "games"]]
                 [:li {} [:a {:href "https://awesomewm.org/"} "window managers"]]
-                [:li {} [:a {:href "https://openresty.org/en/"} "web servers"]]
+                [:li {} [:a {:href "https://openresty.org/en/"} "web"]
+                 [:a {:href "https://github.com/bakpakin/moonmint"} "servers"]]
                 [:li {} [:a {:href "https://github.com/pllua/pllua"} "data"]
                  [:a {:href "https://redis.io/commands/eval"} "bases"]]
-                [:li {} [:a {:href "https://fengari.io"} "web browsers"]]
+                [:li {} [:a {:href "https://fengari.io"} "web"]]
+                [:li {} [:a {:href "https://github.com/luakit/luakit"} "browsers"]]
                 [:li {} [:a {:href "http://www.nodemcu.com/index_en.html"}
                          "$4 microcontrollers"]]]
 
@@ -117,7 +119,7 @@
                [:hr {}]
                [:p {} "Fennel is copyright &copy; 2016-2018 Calvin Rose and "
                 [:a {:href "https://github.com/bakpakin/Fennel/graphs/contributors"}
-                 "contributors."] "released under the MIT license. "
+                 "contributors."] "released under the MIT/X11 license. "
                 "This website is under the same terms and also developed on"
                 [:a {:href "https://github.com/technomancy/fennel-lang.org"}
                  "GitHub."]]]]))

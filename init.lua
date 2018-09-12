@@ -4,7 +4,7 @@ package.path = "./?.lua"
 local js = require "js"
 local fennel = require "fennel"
 
-local welcome = "Welcome to Fennel, running on Fengari 0.1.1 (Lua 5.3.4)"
+local welcome = "Welcome to Fennel, running on Fengari (" .. _VERSION .. ")"
 
 -- the hacks below are needed specifically to get the Fennel test suite to pass
 
