@@ -29,16 +29,14 @@
 
                [:ul {}
                 [:li {} [:b {} "Full Lua compatibilty:"] "Easily call any Lua "
-                 "function from Fennel and vice-versa."]
-                [:li {} [:b {} "Zero overhead:"] "Compiled code should be fast,"
-                 " standalone, and just as or more efficient than hand-written"
-                 " Lua."]
+                 "function or library from Fennel and vice-versa."]
+                [:li {} [:b {} "Zero overhead:"] "Compiled code should be just "
+                 "as or more efficient than hand-written Lua."]
                 [:li {} [:b {} "Compile-time macros:"]
-                 "Macros exist only at compile time"
-                 " and are not included in the output code."]
-                [:li {} [:b {} "Embeddable:"] "Fennel is a library as well as "
-                 "an executable. Embed it in other programs to support runtime "
-                 "extensibility and interactive development."]]
+                 "Ship compiled code with no runtime dependency on Fennel."]
+                [:li {} [:b {} "Embeddable:"] "Fennel is a one-filelibrary as "
+                 "well as an executable. Embed it in other programs to support "
+                 "runtime extensibility and interactive development."]]
 
                [:p {} "Anywhere you can run Lua code, you can run Fennel code."]
 
