@@ -1,11 +1,8 @@
 (local html (require :html))
+(local style (require :conf.style))
 
 (print (html [:html {:lang "en"}
-              [:head {}
-               [:style {:type "text/css"}
-                "body{margin:40px auto;max-width:650px;line-height:1.6;"
-                "font-size:18px;color:#444;padding:0 10px}"
-                "h1,h2,h3{line-height:1.2}"]
+              [:head {} style
                [:title {} "FennelConf 2018"]]
               [:body {}
                [:h1 {} "FennelConf 2018"]
