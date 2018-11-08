@@ -34,7 +34,7 @@
                  "as or more efficient than hand-written Lua."]
                 [:li {} [:b {} "Compile-time macros:"]
                  "Ship compiled code with no runtime dependency on Fennel."]
-                [:li {} [:b {} "Embeddable:"] "Fennel is a one-filelibrary as "
+                [:li {} [:b {} "Embeddable:"] "Fennel is a one-file library as "
                  "well as an executable. Embed it in other programs to support "
                  "runtime extensibility and interactive development."]]
 
@@ -71,7 +71,8 @@
                 [:kbd {} (.. "    $ git clone https://github.com/bakpakin/Fennel"
                              " && cd Fennel"
                              "\n    $ ./fennel --compile code.fnl > code.lua"
-                             "\n    $ ./fennel --repl")]]
+                             "\n    $ ./fennel --repl"
+                             "\n    $ ./fennel code.fnl")]]
 
                [:h3 {} "That's too much work!"]
                [:p {} "Fine, you can use Fennel right here without installing"
