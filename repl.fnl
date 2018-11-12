@@ -25,7 +25,7 @@
 (defn tutorial-fn []
   (while (not progress.print)
     (coroutine.yield)
-    (if (= match? last-input "(print \"hello world!\")")
+    (if (match? last-input "(print \"hello world!\")")
         (ok :print "Very good; that's the idea.")
         (: last-input :find "%(print")
         (ok :print "Well, not exactly what I had in mind, but close enough.")
