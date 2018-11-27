@@ -9,6 +9,6 @@ Header set X-XSS-Protection "1; mode=block"
 RewriteCond %{SERVER_PORT} 80 
 RewriteRule ^(.*)$ https://conf.fennel-lang.org/$1 [R=301,L]
 
-RewriteRule ^$ https://conf.fennel-lang.org/2018 [R=301,L]
-RewriteRule ^/$ https://conf.fennel-lang.org/2018 [R=301,L]
-RewriteRule ^/index.html$ https://conf.fennel-lang.org/2018 [R=301,L]
+RewriteRule ^$ https://conf.fennel-lang.org/2019 [R=301,L]
+RewriteRule ^/$ https://conf.fennel-lang.org/2019 [R=301,L]
+RewriteRule ^/index.html$ https://conf.fennel-lang.org/2019 [R=301,L]
