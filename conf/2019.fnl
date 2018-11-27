@@ -12,6 +12,8 @@
                 [:a {:href "https://github.com/bakpakin/Fennel"} "Fennel"]
                 " programming language."]
 
+               [:h3 {} "See how much fun we had in: "
+                [:a {:href "/2018"} "2018"]]
                [:h3 {} "Possible presentations"]
                [:ul {}
                 [:li {} "The module system and how to hack reloads in it: "
