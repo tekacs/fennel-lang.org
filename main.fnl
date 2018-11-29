@@ -94,23 +94,22 @@
                 [:li {} "Get started with"
                  (repo-link "the Tutorial." "tutorial.md")]
                 [:li {} "The" (repo-link "Lua primer" "lua-primer.md")
-                 "will catch you up on useful concepts in the Lua language "
-                 "if you don't already know it."]
+                 "will catch you up if you don't already know Lua."]
                 [:li {} "The" (repo-link "Reference" "reference.md") "lists "
                  "out all built-in special forms and what they're for."]
                 [:li {} "The" (repo-link "API listing" "api.md")
                  "explains how to embed Fennel into a Lua program."]]
 
                [:h2 {} "Development"]
-               [:p {} "Fennel uses"
+               [:p {} "Fennel's repository is on "
                 [:a {:href "https://github.com/bakpakin/Fennel"} "GitHub"]
-                "for development;"
+                ", and discussion occurs on "
+                [:a {:href "https://lists.sr.ht/%7Etechnomancy/fennel"}
+                 "the mailing list"] " and "
+                [:a {:href "https://webchat.freenode.net/"} "the #fennel channel"]
+                " on Freenode. "
                 [:a {:href "https://github.com/bakpakin/Fennel/issues"}
-                 "bug reports and feature requests"] "are tracked in the "
-                "issue system there."]
-               [:p {} "Most discussion of Fennel happens on"
-                [:a {:href "https://webchat.freenode.net/"} "the #fennel"
-                 " channel on Freenode."]]
+                 "Bug reports"] "are tracked in the GitHub issue system."]
                [:p {} "There is also"
                 [:a {:href "https://github.com/bakpakin/Fennel/wiki"} "a wiki"]
                 " for collecting ideas."]
@@ -119,6 +118,6 @@
                [:p {} "Fennel is copyright &copy; 2016-2018 Calvin Rose and "
                 [:a {:href "https://github.com/bakpakin/Fennel/graphs/contributors"}
                  "contributors."] "released under the MIT/X11 license. "
-                "This website is under the same terms and also developed on"
+                "This website is under the same terms and also stored on"
                 [:a {:href "https://github.com/technomancy/fennel-lang.org"}
                  "GitHub."]]]]))
