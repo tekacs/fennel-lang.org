@@ -11,7 +11,7 @@
     params))
 
 (fn save-contents [id contents]
-  (let [f (io.open (.. "signups/" id) :w)]
+  (let [f (io.open (.. "signups/" id ".fnl") :w)]
     (: f :write (view (parse contents)))
     (: f :close)))
 

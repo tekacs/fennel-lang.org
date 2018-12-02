@@ -18,3 +18,6 @@ upload: index.html init.lua repl.fnl fennel.css fengari-web.js .htaccess \
 uploadconf: conf/2019.html conf/2018.html conf/thanks.html conf/.htaccess \
 			fennelview.lua conf/signup.cgi
 	rsync $^ fenneler@fennel-lang.org:conf.fennel-lang.org/
+
+pullsignups:
+	rsync -rv fenneler@fennel-lang.org:conf.fennel-lang.org/signups/*fnl signups/
