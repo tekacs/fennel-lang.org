@@ -16,6 +16,8 @@
                [:img {:src (.. "https://farm1.staticflickr.com/"
                                "803/40939667552_571e2667ee_k.jpg")
                       :width 640 :alt "Fennel Conf 2018"}]
+               [:p {} "See the page for the" [:a {:href "/2019"} "2019"]
+                " conference."]
                [:p {} [:a {:href (.. "https://github.com/technomancy/"
                                      "fennel-lang.org/tree/master/conf")}
                        "source"]]]]))
