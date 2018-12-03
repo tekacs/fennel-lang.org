@@ -4,6 +4,7 @@ generate.lua: fennel/generate.fnl ; fennel/fennel --compile $^ > $@
 
 HTML := tutorial.html api.html reference.html lua-primer.html index.html
 
+# TODO: upgrade to pandoc 2.0+ and add --syntax-definition fennel-syntax.xml
 tutorial.html: fennel/tutorial.md ; pandoc -H head.html -A foot.html -o $@ $^
 api.html: fennel/api.md ; pandoc -H head.html -A foot.html -o $@ $^
 reference.html: fennel/reference.md ; pandoc -H head.html -A foot.html -o $@ $^

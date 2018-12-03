@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!-- See https://docs.kde.org/stable5/en/applications/katepart/highlight.html -->
+<language version="6" kateversion="5.0" name="Fennel"
+          section="Scripts" extensions="*.fnl;*.lisp"
+          mimetype="text/x-fennel"
+          author="Phil Hagelberg (technomancy@gmail.com)"
+          license="MIT"
+          priority="9">
+  <highlighting>
+    <list name="operators">
+      <item>&lt;=</item>
+      <item>&lt;</item>
+      <item>=</item>
+      <item>~=</item>
+      <item>=&gt;</item>
+      <item>&gt;=</item>
+      <item>&gt;</item>
+      <item>-</item>
+      <item>/</item>
+      <item>//</item>
+      <item>*</item>
+      <item>+</item>
+      <item>..</item>
+      <item>^</item>
+      <item>%</item>
+      <item>#</item>
+    </list>
+    <list name="defines">
+      <item>fn</item>
+      <item>lambda</item>
+      <item>λ</item>
+      <item>var</item>
+      <item>global</item>
+      <item>local</item>
+    </list>
+    <list name="keywords">
+      <item>require-macros</item>
+      <item>eval-compiler</item>
+      <item>do</item>
+      <item>values</item>
+      <item>if</item>
+      <item>when</item>
+      <item>each</item>
+      <item>for</item>
+      <item>partial</item>
+      <item>while</item>
+      <item>set</item>
+      <item>let</item>
+      <item>tset</item>
+      <item>set-forcibly!</item>
+      <item>or</item>
+      <item>and</item>
+      <item>true</item>
+      <item>false</item>
+      <item>nil</item>
+      <item>.</item>
+      <item>...</item>
+      <item>:</item>
+      <item>-&gt;</item>
+      <item>-&gt;&gt;</item>
+
+      <item>_G</item>
+      <item>_VERSION</item>
+      <item>arg</item>
+      <item>assert</item>
+      <item>bit32</item>
+      <item>collectgarbage</item>
+      <item>coroutine</item>
+      <item>debug</item>
+      <item>dofile</item>
+      <item>error</item>
+      <item>getfenv</item>
+      <item>getmetatable</item>
+      <item>io</item>
+      <item>ipairs</item>
+      <item>load</item>
+      <item>loadfile</item>
+      <item>loadstring</item>
+      <item>math</item>
+      <item>next</item>
+      <item>os</item>
+      <item>package</item>
+      <item>pairs</item>
+      <item>pcall</item>
+      <item>print</item>
+      <item>rawequal</item>
+      <item>rawget</item>
+      <item>rawlen</item>
+      <item>rawset</item>
+      <item>require</item>
+      <item>select</item>
+      <item>setfenv</item>
+      <item>setmetatable</item>
+      <item>string</item>
+      <item>table</item>
+      <item>tonumber</item>
+      <item>tostring</item>
+      <item>type</item>
+      <item>unpack</item>
+      <item>xpcall</item>
+    </list>
+    <contexts>
+      <context name="Level0" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="Brackets1" context="Level1" char="("/>
+        <IncludeRules context="Default" />
+      </context>
+      <context name="Default" attribute="Normal" lineEndContext="#stay">
+        <RegExpr attribute="Comment" context="#stay" String=";.*$"/>
+        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+        <keyword attribute="Operator" context="#stay" String="operators"/>
+        <keyword attribute="Definition" context="function_decl" String="defines"/>
+        <DetectChar attribute="String" context="String" char="&quot;"/>
+        <Float attribute="Float" context="#stay"/>
+        <Int attribute="Decimal" context="#stay"/>
+        <DetectChar attribute="Brackets1" context="Level1" char="("/>
+      </context>
+      <context name="String" attribute="String" lineEndContext="#stay">
+        <RegExpr attribute="Char" context="#stay" String="#\\."/>
+        <Detect2Chars attribute="Char" context="#stay" char="\" char1="&quot;"/>
+        <Detect2Chars attribute="Char" context="#stay" char="\" char1="\"/>
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
+      </context>
+      <context name="function_decl" attribute="Function" lineEndContext="#stay">
+        <RegExpr attribute="Function" context="#pop" String="\s*[A-Za-z0-9-+\&lt;\&gt;//\*]*\s*" />
+      </context>
+      <context name="Level1" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="Brackets2" context="Level2" char="("/>
+        <DetectChar attribute="Brackets1" context="#pop" char=")" />
+        <IncludeRules context="Default" />
+      </context>
+      <context name="Level2" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="Brackets3" context="Level3" char="("/>
+        <DetectChar attribute="Brackets2" context="#pop" char=")" />
+        <IncludeRules context="Default" />
+      </context>
+      <context name="Level3" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="Brackets4" context="Level4" char="("/>
+        <DetectChar attribute="Brackets3" context="#pop" char=")" />
+        <IncludeRules context="Default" />
+      </context>
+      <context name="Level4" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="Brackets5" context="Level5" char="("/>
+        <DetectChar attribute="Brackets4" context="#pop" char=")" />
+        <IncludeRules context="Default" />
+      </context>
+      <context name="Level5" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="Brackets6" context="Level6" char="("/>
+        <DetectChar attribute="Brackets5" context="#pop" char=")" />
+        <IncludeRules context="Default" />
+      </context>
+      <context name="Level6" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="Brackets1" context="Level1" char="("/>
+        <DetectChar attribute="Brackets6" context="#pop" char=")" />
+        <IncludeRules context="Default" />
+      </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal"      defStyleNum="dsNormal"/>
+      <itemData name="Keyword"     defStyleNum="dsKeyword"/>
+      <itemData name="Definition"  defStyleNum="dsExtension"/>
+      <itemData name="Operator"    defStyleNum="dsOperator"/>
+      <itemData name="Function"    defStyleNum="dsFunction"/>
+      <itemData name="Decimal"     defStyleNum="dsDecVal"/>
+      <itemData name="Float"       defStyleNum="dsFloat"/>
+      <itemData name="Char"        defStyleNum="dsChar"/>
+      <itemData name="String"      defStyleNum="dsString"/>
+      <itemData name="Comment"     defStyleNum="dsComment"/>
+      <itemData name="Region Marker" defStyleNum="dsRegionMarker"/>
+      <itemData name="Brackets1"    defStyleNum="dsNormal" color="#ff0000" bold="1"/>
+      <itemData name="Brackets2"    defStyleNum="dsNormal" color="#ff8800" bold="1"/>
+      <itemData name="Brackets3"    defStyleNum="dsNormal" color="#888800" bold="1"/>
+      <itemData name="Brackets4"    defStyleNum="dsNormal" color="#008800" bold="1"/>
+      <itemData name="Brackets5"    defStyleNum="dsNormal" color="#000088" bold="1"/>
+      <itemData name="Brackets6"    defStyleNum="dsNormal" color="#880088" bold="1"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <keywords casesensitive="1" weakDeliminator="-+*?!&lt;&gt;=/:#\"/>
+    <comments>
+      <comment name="singleLine" start=";;" />
+    </comments>
+  </general>
+</language>
