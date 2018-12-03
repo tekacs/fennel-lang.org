@@ -45,7 +45,7 @@
         (narrate "You can do better than that!")
         :else nil))
 
-  (narrate "Let's try a function now: (global add (fn [x y] (+ x y)))")
+  (narrate "Let's try a function now: (fn add [x y] (+ x y))")
   (while (not progress.fn)
     (set env.add nil)
     (coroutine.yield)
@@ -55,8 +55,6 @@
           (= (type env.add) "function")
           (narrate (.. "Well, you defined a function, but it had a problem. "
                        "Try again?"))
-          (: last-input :find "%(global")
-          (narrate "No, no no; it's supposed to be a function!")
           :else nil)))
 
   (narrate "")
