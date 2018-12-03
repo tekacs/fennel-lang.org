@@ -12,17 +12,17 @@
 
 (local progress {})
 
-(defn match? [input target]
+(fn match? [input target]
   (-> (: input :lower)
       (: :gsub "^ +" "")
       (: :gsub " +$" "")
       (= target)))
 
-(defn ok [key msg]
+(fn ok [key msg]
   (narrate msg)
   (tset progress key true))
 
-(defn tutorial-fn []
+(fn tutorial-fn []
   (while (not progress.print)
     (coroutine.yield)
     (if (match? last-input "(print \"hello world!\")")
