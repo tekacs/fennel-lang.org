@@ -1,11 +1,5 @@
 ;; static HTML generator for the page
-(local fennel (require "fennel"))
-(table.insert package.loaders fennel.searcher)
 (local html (require "html"))
-
-(local repo-link (fn [text path]
-                   [:a {:href (.. "https://github.com/bakpakin/Fennel/"
-                                  "tree/master/" path)} text]))
 
 (print "<!DOCTYPE html>")
 (print (html [:html {:lang "en"}
@@ -92,12 +86,12 @@
                [:h2 {} "Documentation"]
                [:ul {}
                 [:li {} "Get started with"
-                 (repo-link "the Tutorial." "tutorial.md")]
-                [:li {} "The" (repo-link "Lua primer" "lua-primer.md")
+                 [:a {:href "/tutorial"} "the Tutorial."]]
+                [:li {} "The" [:a {:href "/lua-primer"} "Lua primer"]
                  "will catch you up if you don't already know Lua."]
-                [:li {} "The" (repo-link "Reference" "reference.md") "lists "
+                [:li {} "The" [:a {:href "/reference"} "Reference"] "lists "
                  "out all built-in special forms and what they're for."]
-                [:li {} "The" (repo-link "API listing" "api.md")
+                [:li {} "The" [:a {:href "/api"} "API listing"]
                  "explains how to embed Fennel into a Lua program."]]
 
                [:h2 {} "Development"]

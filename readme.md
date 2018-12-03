@@ -2,6 +2,8 @@
 
 The [web site](https://fennel-lang.org) for the [Fennel programming language](https://github.com/bakpakin/Fennel).
 
+The documentation comes from the markdown files in [the main Fennel repository](https://github.com/bakpakin/Fennel).
+
 If you want to contribute to the project, please
 [send patches](https://man.sr.ht/git.sr.ht/send-email.md) to the
 [mailing list](https://lists.sr.ht/%7Etechnomancy/fennel). Note that
