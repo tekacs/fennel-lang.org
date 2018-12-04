@@ -47,12 +47,12 @@
 
   (narrate "Let's try a function now: (fn add [x y] (+ x y))")
   (while (not progress.fn)
-    (set env.add nil)
+    (set env.___replLocals___.add nil)
     (coroutine.yield)
-    (let [ok? (and (= (type env.add) "function") (pcall env.add 1 1))]
-      (if (and ok? (= 10 (env.add 2 8)) (= 5 (env.add 10 -5)))
+    (let [ok? (and (= (type env.___replLocals___.add) "function") (pcall env.___replLocals___.add 1 1))]
+      (if (and ok? (= 10 (env.___replLocals___.add 2 8)) (= 5 (env.___replLocals___.add 10 -5)))
           (ok :fn "Not the most useful function to have, but nicely done.")
-          (= (type env.add) "function")
+          (= (type env.___replLocals___.add) "function")
           (narrate (.. "Well, you defined a function, but it had a problem. "
                        "Try again?"))
           :else nil)))
