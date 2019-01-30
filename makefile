@@ -31,4 +31,7 @@ uploadconf: conf/2019.html conf/2018.html conf/thanks.html conf/.htaccess \
 	rsync $^ fenneler@fennel-lang.org:conf.fennel-lang.org/
 
 pullsignups:
+	ls signups/ | wc -l
 	rsync -rv fenneler@fennel-lang.org:conf.fennel-lang.org/signups/*fnl signups/
+	ls signups/ | wc -l
+	fennel signups.fnl

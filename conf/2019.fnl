@@ -9,17 +9,16 @@
       [:p {} [:b {} "Location:"] "Portland, OR"]
       [:p {} [:b {} "Time:"] "16 March 2019"]
       [:p {} [:b {} "Topic:"] "The "
-       [:a {:href "https://github.com/bakpakin/Fennel"} "Fennel"]
-       " programming language."]
+       [:a {:href "https://fennel-lang.org"} "Fennel programming language."]]
 
       [:h3 {} "Possible presentations"]
       [:ul {}
-       [:li {} "The module system and how to hack reloads in it: "
-        [:a {:href "https://technomancy.us"} "Phil Hagelberg"]]
+       [:li {} "Interactive development in 80kb of RAM: Phil Hagelberg"]
        [:li {} "Using fennel as a glue in systems programming: "
         "Justin Smith"]
        [:li {} "Generating a cyberpunk story using Fennel, Love2D and graphs: "
         "Andrew Owen"]
+       [:li {} "Making a functional HTTP server with Fennel: " "Calvin Rose"]
        ]
 
       [:h3 {} "Tickets"]
