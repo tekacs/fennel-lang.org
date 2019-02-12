@@ -22,7 +22,7 @@
                  "lisp syntax and macro system."]]
 
                [:ul {}
-                [:li {} [:b {} "Full Lua compatibilty:"] "Easily call any Lua "
+                [:li {} [:b {} "Full Lua compatibility:"] "Easily call any Lua "
                  "function or library from Fennel and vice-versa."]
                 [:li {} [:b {} "Zero overhead:"] "Compiled code should be just "
                  "as or more efficient than hand-written Lua."]
@@ -58,7 +58,7 @@
                [:h2 {} "Usage"]
 
                [:p {} "Install with"
-                [:a {:href "https://luarocks.org"} "Luarocks"]
+                [:a {:href "https://luarocks.org"} "LuaRocks"]
                 "or grab the Fennel repository and run it from there:"]
 
                [:pre {}
