@@ -20,14 +20,15 @@ upload: $(HTML) init.lua repl.fnl fennel.css fengari-web.js .htaccess \
 
 conf/2018.html: conf/2018.fnl ; fennel/fennel $^ > $@
 conf/2019.html: conf/2019.fnl ; fennel/fennel $^ > $@
+conf/2020.html: conf/2020.fnl ; fennel/fennel $^ > $@
+
 conf/thanks.html: conf/thanks.fnl ; fennel/fennel $^ > $@
 conf/signup.cgi: conf/signup.fnl
 	echo "#!/usr/bin/env lua" > $@
 	fennel/fennel --compile $^ >> $@
 	chmod 755 $@
 
-uploadconf: conf/2019.html conf/2018.html conf/thanks.html conf/.htaccess \
-			fennelview.lua conf/signup.cgi
+uploadconf: conf/*.html conf/.htaccess fennelview.lua conf/signup.cgi
 	rsync $^ fenneler@fennel-lang.org:conf.fennel-lang.org/
 
 pullsignups:
