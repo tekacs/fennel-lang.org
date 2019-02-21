@@ -11,14 +11,16 @@
       [:p {} [:b {} "Topic:"] "The "
        [:a {:href "https://fennel-lang.org"} "Fennel programming language."]]
 
-      [:h3 {} "Possible presentations"]
+      [:h3 {} "Presentations"]
       [:ul {}
-       [:li {} "Interactive development in 80kb of RAM: Phil Hagelberg"]
+       [:li {} "Riding the coat-tails of Lua integration:"
+        "Jesse Wertheim"]
+       [:li {} "Making a functional HTTP server with Fennel: " "Calvin Rose"]
        [:li {} "Using fennel as a glue in systems programming: "
         "Justin Smith"]
-       [:li {} "Generating a cyberpunk story using Fennel, Love2D and graphs: "
-        "Andrew Owen"]
-       [:li {} "Making a functional HTTP server with Fennel: " "Calvin Rose"]
+       [:li {} "Full Stack Fennel; or, Overengineering as an Art Form: "
+        "Benaiah Mischenko"]
+       [:li {} "Interactive development in 80kb of RAM: Phil Hagelberg"]
        ]
 
       [:h3 {} "Tickets"]
