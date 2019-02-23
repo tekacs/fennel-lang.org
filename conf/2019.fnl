@@ -6,41 +6,54 @@
       [:title {} "FennelConf 2019"]]
      [:body {}
       [:h1 {} "FennelConf 2019"]
-      [:p {} [:b {} "Location:"] "Portland, OR"]
+      [:p {} [:b {} "Location:"]
+       [:a {:href "https://centrloffice.com/locations/oregon-portland-downtown"}
+        "Centrl Office"]
+       "Downtown Portland, OR"]
       [:p {} [:b {} "Time:"] "16 March 2019"]
       [:p {} [:b {} "Topic:"] "The "
        [:a {:href "https://fennel-lang.org"} "Fennel programming language."]]
 
-      [:h3 {} "Presentations"]
+      [:hr {}]
+      [:h3 {} "Schedule"]
       [:ul {}
-       [:li {} "Riding the coat-tails of Lua integration:"
+       [:li {} [:b {} "8:30"] "Meet up at"
+        [:a {:href "https://www.heartroasters.com/pages/locations"}
+         "Heart Coffee westside"] "before the conference."]
+       [:li {} [:b {} "9:00"] "Riding the coat-tails of Lua integration:"
         "Jesse Wertheim"]
-       [:li {} "Making a functional HTTP server with Fennel: " "Calvin Rose"]
-       [:li {} "Using fennel as a glue in systems programming: "
+       [:li {} [:b {} "9:50"] "Making a functional HTTP server with Fennel: "
+        [:a {:href "https://bakpakin.com/"} "Calvin Rose"]]
+       [:li {} [:b {} "10:40"] "Coffee/snack Break"]
+       [:li {} [:b {} "11:10"] "Using fennel as a glue in systems programming: "
         "Justin Smith"]
-       [:li {} "Full Stack Fennel; or, Overengineering as an Art Form: "
-        "Benaiah Mischenko"]
-       [:li {} "Interactive development in 80kb of RAM: Phil Hagelberg"]
+       [:li {} [:b {} "12:00"] "Lunch"]
+       [:li {} [:b {} "13:00"]
+        "Full Stack Fennel; or, Overengineering as an Art Form: "
+        [:a {:href "https://benaiah.me/about"} "Benaiah Mischenko"]]
+       [:li {} [:b {} "13:50"] "Interactive development in 80kb of RAM: "
+        [:a {:href "https://technomancy.us/colophon"} "Phil Hagelberg"]]
+       [:li {} [:b {} "14:40-17:00"] "Hack afternoon!"]
        ]
 
-      [:h3 {} "Tickets"]
-      [:p {} "Attendance is free! Please sign up so we can plan"
-       " for the event."]
-      [:form {:id "signup" :action "signup.cgi" :method "post"}
-       [:p {}
-        [:input {:type "hidden" :name "year" :value "2019"}]
-        [:input {:type "text" :name "name" :placeholder "name"}]
-        [:input {:type "text" :name "email" :placeholder "email"}]]
-       [:p {}
-        "If you'd like to give a presentation, please write"
-        " a bit about that:"]
-       [:textarea {:placeholder "talk abstract" :name "abstract"
-                   :rows "6" :cols "60"}]
-       [:p {}
-        [:input {:type "submit" :value "sign up"}]]]
+      ;; [:h3 {} "Tickets"]
+      ;; [:p {} "Attendance is free! Please sign up so we can plan"
+      ;;  " for the event."]
+      ;; [:form {:id "signup" :action "signup.cgi" :method "post"}
+      ;;  [:p {}
+      ;;   [:input {:type "hidden" :name "year" :value "2019"}]
+      ;;   [:input {:type "text" :name "name" :placeholder "name"}]
+      ;;   [:input {:type "text" :name "email" :placeholder "email"}]]
+      ;;  [:p {}
+      ;;   "If you'd like to give a presentation, please write"
+      ;;   " a bit about that:"]
+      ;;  [:textarea {:placeholder "talk abstract" :name "abstract"
+      ;;              :rows "6" :cols "60"}]
+      ;;  [:p {}
+      ;;   [:input {:type "submit" :value "sign up"}]]]
 
-      [:h3 {} "See how much fun we had in: " [:a {:href "/2018"} "2018"]]
       [:hr {}]
+      [:h3 {} "See how much fun we had in: " [:a {:href "/2018"} "2018"]]
 
       [:p {} [:a {:href (.. "https://github.com/technomancy/"
                             "fennel-lang.org/tree/master/conf")}
