@@ -2,8 +2,8 @@
 (local style (require :conf.style))
 
 (-> [:html {:lang "en"}
-     [:head {} style
-      [:title {} "FennelConf 2019"]]
+     [:head {} [:title {} "FennelConf 2019"]
+      (unpack style)]
      [:body {}
       [:h1 {} "FennelConf 2019"]
       [:p {} [:b {} "Location:"]

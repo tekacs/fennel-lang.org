@@ -2,12 +2,12 @@
 (local style (require :conf.style))
 
 (print (html [:html {:lang "en"}
-              [:head {} style
-               [:title {} "FennelConf 2018"]]
+              [:head {} [:title {} "FennelConf 2018"]
+               (unpack style)]
               [:body {}
                [:h1 {} "FennelConf 2018"]
                [:p {} [:b {} "Location:"] "Hawthorne Lucky Lab, Portland, OR"]
-               [:p {} [:b {} "Time:"] "2018-03-23 19:00:00-23:30"]
+               [:p {} [:b {} "Time:"] "2018-03-23 19:00-23:30"]
                [:p {} [:b {} "Topic:"] "The "
                 [:a {:href "https://github.com/bakpakin/Fennel"} "Fennel"]
                 " programming language."]
