@@ -1,5 +1,5 @@
 (local js (require "js"))
-(local fennel (require "fennel"))
+(local fennel (require "fennel/fennel"))
 (local log (fn [...] (: js.global.console :log ...)))
 
 (local env (setmetatable {:js js :fennel fennel :log log}

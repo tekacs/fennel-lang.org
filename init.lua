@@ -2,7 +2,7 @@
 -- https://github.com/fengari-lua/fengari.io/blob/master/static/lua/web-cli.lua
 package.path = "./?.lua"
 local js = require "js"
-local fennel = require "fennel"
+local fennel = require "fennel/fennel"
 
 local welcome = "Welcome to Fennel " .. fennel.version ..
    ", running on Fengari (" .. _VERSION .. ")"
