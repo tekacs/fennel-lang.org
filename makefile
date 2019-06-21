@@ -14,9 +14,8 @@ html: $(HTML)
 clean: ; rm $(HTML)
 
 upload: $(HTML) init.lua repl.fnl fennel.css fengari-web.js .htaccess \
-		fennel/fennel.lua fennel/test.lua fennel/test-macros.fnl \
-		fennelview.lua generate.lua
-	rsync $^ fenneler@fennel-lang.org:fennel-lang.org/
+		fennel fennelview.lua generate.lua
+	rsync -r $^ fenneler@fennel-lang.org:fennel-lang.org/
 
 conf/2018.html: conf/2018.fnl ; fennel/fennel $^ > $@
 conf/2019.html: conf/2019.fnl ; fennel/fennel $^ > $@
