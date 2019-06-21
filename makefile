@@ -2,13 +2,16 @@ index.html: main.fnl sample.html ; fennel/fennel main.fnl > index.html
 fennelview.lua: fennel/fennelview.fnl ; fennel/fennel --compile $^ > $@
 generate.lua: fennel/generate.fnl ; fennel/fennel --compile $^ > $@
 
-HTML := tutorial.html api.html reference.html lua-primer.html index.html
+HTML := tutorial.html api.html reference.html lua-primer.html changelog.html index.html
+
+PANDOC=pandoc -H head.html -A foot.html -T "Fennel"
 
 # TODO: upgrade to pandoc 2.0+ and add --syntax-definition fennel-syntax.xml
-tutorial.html: fennel/tutorial.md ; pandoc -H head.html -A foot.html -o $@ $^
-api.html: fennel/api.md ; pandoc -H head.html -A foot.html -o $@ $^
-reference.html: fennel/reference.md ; pandoc -H head.html -A foot.html -o $@ $^
-lua-primer.html: fennel/lua-primer.md ; pandoc -H head.html -A foot.html -o $@ $^
+tutorial.html: fennel/tutorial.md ; $(PANDOC) -o $@ $^
+api.html: fennel/api.md ; $(PANDOC) -o $@ $^
+reference.html: fennel/reference.md ; $(PANDOC) -o $@ $^
+lua-primer.html: fennel/lua-primer.md ; $(PANDOC) -o $@ $^
+changelog.html: fennel/changelog.md ; $(PANDOC) -o $@ $^
 
 html: $(HTML)
 clean: ; rm $(HTML)
@@ -17,9 +20,7 @@ upload: $(HTML) init.lua repl.fnl fennel.css fengari-web.js .htaccess \
 		fennel fennelview.lua generate.lua
 	rsync -r $^ fenneler@fennel-lang.org:fennel-lang.org/
 
-conf/2018.html: conf/2018.fnl ; fennel/fennel $^ > $@
-conf/2019.html: conf/2019.fnl ; fennel/fennel $^ > $@
-conf/2020.html: conf/2020.fnl ; fennel/fennel $^ > $@
+conf/%.html: conf/%.fnl ; fennel/fennel $^ > $@
 
 conf/thanks.html: conf/thanks.fnl ; fennel/fennel $^ > $@
 conf/signup.cgi: conf/signup.fnl
@@ -27,8 +28,11 @@ conf/signup.cgi: conf/signup.fnl
 	fennel/fennel --compile $^ >> $@
 	chmod 755 $@
 
-uploadconf: conf/*.html conf/.htaccess fennelview.lua conf/signup.cgi
+uploadconf: conf/*.html conf/*.jpg conf/.htaccess fennelview.lua conf/signup.cgi
 	rsync $^ fenneler@fennel-lang.org:conf.fennel-lang.org/
+
+uploadv: conf/v
+	rsync -r $^ fenneler@fennel-lang.org:conf.fennel-lang.org/
 
 pullsignups:
 	ls signups/ | wc -l

@@ -44,8 +44,8 @@
                  [:a {:href "https://redis.io/commands/eval"} "bases"]]
                 [:li {} [:a {:href "https://fengari.io"} "web"]]
                 [:li {} [:a {:href "https://github.com/luakit/luakit"} "browsers"]]
-                [:li {} [:a {:href "http://www.nodemcu.com/index_en.html"}
-                         "$4 microcontrollers"]]]
+                [:li {} [:a {:href "https://github.com/whitecatboard/Lua-RTOS-ESP32/"}
+                         "$8 microcontrollers"]]]
 
                ;; TODO: add multiple selection of snippets like python.org
                ;; maybe we can show lua output for each; see "modal" on
@@ -92,7 +92,9 @@
                 [:li {} "The" [:a {:href "/reference"} "Reference"] "lists "
                  "out all built-in special forms and what they're for."]
                 [:li {} "The" [:a {:href "/api"} "API listing"]
-                 "explains how to embed Fennel into a Lua program."]]
+                 "explains how to embed Fennel into a Lua program."]
+                [:li {} "The" [:a {:href "/changelog"} "Changelog"]
+                 "describes how Fennel has evolved with time."]]
 
                [:h2 {} "Development"]
                [:p {} "Fennel's repository is on "
