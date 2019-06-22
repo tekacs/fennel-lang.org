@@ -18,10 +18,9 @@ changelog.html: fennel/changelog.md ; $(PANDOC) -o $@ $^
 build: $(HTML) $(LUA)
 html: $(HTML)
 lua: $(LUA)
-clean: ; rm $(HTML) $(LUA)
+clean: ; rm -f $(HTML) $(LUA)
 
-upload: build init.lua repl.fnl fennel.css fengari-web.js .htaccess \
-		fennel fennelview.lua generate.lua
+upload: $(HTML) $(LUA) init.lua repl.fnl fennel.css fengari-web.js .htaccess fennel
 	rsync -r $^ fenneler@fennel-lang.org:fennel-lang.org/
 
 conf/%.html: conf/%.fnl ; fennel/fennel $^ > $@
