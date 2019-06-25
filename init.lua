@@ -40,7 +40,8 @@ local document = js.global.document
 local output = document:getElementById("fengari-console")
 local prompt = document:getElementById("fengari-prompt")
 local input = document:getElementById("fengari-input")
-assert(output and prompt and input)
+local luacode = document:getElementById("compiled-lua")
+assert(output and prompt and input and luacode)
 
 local function triggerEvent(el, type)
     local e = document:createEvent("HTMLEvents")
@@ -52,12 +53,11 @@ local history = {}
 local historyIndex = nil
 local historyLimit = 100
 
-_G.print = function(...)
+_G.makeLine = function(...)
     local toprint = pack(...)
 
     local line = document:createElement("pre")
     line.style["white-space"] = "pre-wrap"
-    output:appendChild(line)
 
     for i = 1, toprint.n do
         if i ~= 1 then
@@ -65,30 +65,47 @@ _G.print = function(...)
         end
         line:appendChild(document:createTextNode(tostring(toprint[i])))
     end
+
+    return line
+end
+
+_G.printLuacode = function(...)
+   local line = _G.makeLine(...)
+
+   luacode:appendChild(line)
+   luacode.scrollTop = luacode.scrollHeight
+   triggerEvent(luacode, "change")
+end
+
+_G.print = function(...)
+   local line = _G.makeLine(...)
+
+   output:appendChild(line)
+   output.scrollTop = output.scrollHeight
+   triggerEvent(output, "change")
+end
+
+_G.print(welcome)
+_G.printLuacode("Compiled Lua code")
+
+_G.narrate = function(...)
+    local line = _G.makeLine(...)
+    line.style.color = "blue"
+
+    output:appendChild(line)
 
     output.scrollTop = output.scrollHeight
     triggerEvent(output, "change")
 end
 
-_G.print(welcome)
+_G.printError = function(...)
+   local line = _G.makeLine(...)
+   line.style.color = "red"
 
-_G.narrate = function(...)
-    local toprint = pack(...)
+   output:appendChild(line)
 
-    local line = document:createElement("pre")
-    line.style["white-space"] = "pre-wrap"
-    line.style.color = "blue"
-    output:appendChild(line)
-
-    for i = 1, toprint.n do
-        if i ~= 1 then
-            line:appendChild(document:createTextNode("\t"))
-        end
-        line:appendChild(document:createTextNode(tostring(toprint[i])))
-    end
-
-    output.scrollTop = output.scrollHeight
-    triggerEvent(output, "change")
+   output.scrollTop = output.scrollHeight
+   triggerEvent(output, "change")
 end
 
 local repl = coroutine.create(fennel.dofile("repl.fnl"))

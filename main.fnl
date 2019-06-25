@@ -72,16 +72,22 @@
                [:p {} "Fine, you can use Fennel right here without installing"
                 " anything:"]
 
-               [:div {:class "code"}
-                [:code {:id "fengari-console"}]
-                [:noscript {}
-                 "There's supposed to be an interactive repl here but it needs"
-                 " scripting to be enabled. You can install Fennel with git if"
-                 " you'd rather not enable scripting; it's cool."]
-                [:div {:class "fengari-input-container"}
-                 [:label {:id "fengari-prompt" :for "fengari-input"} "> "]
-                 [:textarea {:class "lua" :id "fengari-input" :rows 1
-                             :placeholder "Type code here..."}]]]
+               [:div {:class "outputs"}
+                [:div {:class "code code-flex"}
+                 [:code {:id "fengari-console"}]
+                  [:noscript {}
+                   "There's supposed to be an interactive repl here but it needs"
+                   " scripting to be enabled. You can install Fennel with git if"
+                   " you'd rather not enable scripting; it's cool."]
+                  [:div {:class "fengari-input-container"}
+                   [:label {:id "fengari-prompt" :for "fengari-input"} "> "]
+                   [:textarea {:class "lua" :id "fengari-input" :rows 1
+                               :placeholder "Type code here..."}]]]
+                [:div {:class "code code-flex" :id "lua-pane"}
+                 [:code {:id "compiled-lua"}]]
+                [:div {:class "code-flex button-container"}
+                 [:button {:id "toggle-compiled-code"}
+                  "Toggle Lua code"]]]
 
                [:h2 {} "Documentation"]
                [:ul {}

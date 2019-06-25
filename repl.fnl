@@ -7,6 +7,15 @@
 
 (set env._ENV env)
 
+(local luapane (: js.global.document :getElementById "lua-pane"))
+(local toggle-btn (: js.global.document :getElementById "toggle-compiled-code"))
+
+(set toggle-btn.onclick
+  (fn []
+    (if (= luapane.style.display "flex")
+      (set luapane.style.display "none")
+      (set luapane.style.display "flex"))))
+
 (var last-input nil)
 (var last-value nil)
 
@@ -72,8 +81,8 @@
 
 (partial fennel.repl {:readChunk (fn []
                                    (let [input (coroutine.yield)]
-                                     ;; TODO: output pane showing compiled lua
                                      (set last-input input)
+                                     (printLuacode (fennel.compileString input))
                                      (print (.. "> " input))
                                      (.. input "\n")))
                       :onValues (fn [xs]
@@ -82,5 +91,5 @@
                                   (coroutine.resume tutorial))
                       ;; TODO: make errors red
                       ;; TODO: log errors for analysis?
-                      :onError (fn [_ msg] (print msg))
+                      :onError (fn [_ msg] (printError msg))
                       :env env})

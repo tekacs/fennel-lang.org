@@ -16,6 +16,13 @@ tt, pre, code, kbd { font-family: "Fira Mono", Inconsolata, monospace; }
 
 #where li { display: inline; margin: 2em; }
 
+.outputs {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    height: 20em;
+}
+
 .code {
     font-size: 12pt;
     text-shadow: none;
@@ -26,14 +33,22 @@ tt, pre, code, kbd { font-family: "Fira Mono", Inconsolata, monospace; }
     margin: 3em auto;
     border-radius: 3px;
     border: 1px solid #ddd;
-    width: 100%;
 }
 
-#fengari-console {
-    height: 15em;
+.code-flex {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    width: min-content;
+}
+
+#fengari-console, #compiled-lua {
     overflow-y: scroll;
     padding: 1em 1.2em;
     display: block;
+    flex-grow: 1;
 }
 
 #fengari-console pre { margin: 0; }
@@ -58,6 +73,25 @@ tt, pre, code, kbd { font-family: "Fira Mono", Inconsolata, monospace; }
     flex: 1;
     font-size: 10pt;
     padding-left: 0;
+}
+
+.button-container {
+    width: 0;
+    flex-grow: 0;
+}
+
+#lua-pane {
+    display: none;
+}
+
+#toggle-compiled-code {
+    font-size: 12pt;
+    transform: rotate(90deg);
+    text-align: center;
+    width: 200px;
+    height: 3em;
+    position: absolute;
+    right: -30px;
 }
 
 /* code sample */
