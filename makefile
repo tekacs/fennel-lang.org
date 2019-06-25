@@ -3,7 +3,7 @@ fennelview.lua: fennel/fennelview.fnl ; fennel/fennel --compile $^ > $@
 generate.lua: fennel/generate.fnl ; fennel/fennel --compile $^ > $@
 
 .DEFAULT_GOAL := build
-HTML := tutorial.html api.html reference.html lua-primer.html changelog.html index.html
+HTML := tutorial.html api.html reference.html lua-primer.html index.html
 LUA := generate.lua fennelview.lua
 
 PANDOC=pandoc -H head.html -A foot.html -T "Fennel"
@@ -13,7 +13,6 @@ tutorial.html: fennel/tutorial.md ; $(PANDOC) -o $@ $^
 api.html: fennel/api.md ; $(PANDOC) -o $@ $^
 reference.html: fennel/reference.md ; $(PANDOC) -o $@ $^
 lua-primer.html: fennel/lua-primer.md ; $(PANDOC) -o $@ $^
-changelog.html: fennel/changelog.md ; $(PANDOC) -o $@ $^
 
 build: $(HTML) $(LUA)
 html: $(HTML)
