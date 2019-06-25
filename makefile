@@ -2,7 +2,9 @@ index.html: main.fnl sample.html ; fennel/fennel main.fnl > index.html
 fennelview.lua: fennel/fennelview.fnl ; fennel/fennel --compile $^ > $@
 generate.lua: fennel/generate.fnl ; fennel/fennel --compile $^ > $@
 
+.DEFAULT_GOAL := build
 HTML := tutorial.html api.html reference.html lua-primer.html changelog.html index.html
+LUA := generate.lua fennelview.lua
 
 PANDOC=pandoc -H head.html -A foot.html -T "Fennel"
 
@@ -13,11 +15,12 @@ reference.html: fennel/reference.md ; $(PANDOC) -o $@ $^
 lua-primer.html: fennel/lua-primer.md ; $(PANDOC) -o $@ $^
 changelog.html: fennel/changelog.md ; $(PANDOC) -o $@ $^
 
+build: $(HTML) $(LUA)
 html: $(HTML)
-clean: ; rm $(HTML)
+lua: $(LUA)
+clean: ; rm -f $(HTML) $(LUA)
 
-upload: $(HTML) init.lua repl.fnl fennel.css fengari-web.js .htaccess \
-		fennel fennelview.lua generate.lua
+upload: $(HTML) $(LUA) init.lua repl.fnl fennel.css fengari-web.js .htaccess fennel
 	rsync -r $^ fenneler@fennel-lang.org:fennel-lang.org/
 
 conf/%.html: conf/%.fnl ; fennel/fennel $^ > $@
@@ -39,3 +42,5 @@ pullsignups:
 	rsync -rv fenneler@fennel-lang.org:conf.fennel-lang.org/signups/*fnl signups/
 	ls signups/ | wc -l
 	fennel signups.fnl
+
+.PHONY: build html lua clean upload uploadv uploadconf pullsignups
