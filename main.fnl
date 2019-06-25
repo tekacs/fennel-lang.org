@@ -92,7 +92,9 @@
                 [:li {} "The" [:a {:href "/reference"} "Reference"] "lists "
                  "out all built-in special forms and what they're for."]
                 [:li {} "The" [:a {:href "/api"} "API listing"]
-                 "explains how to embed Fennel into a Lua program."]]
+                 "explains how to embed Fennel into a Lua program."]
+                [:li {} "The" [:a {:href "/changelog"} "Changelog"]
+                 "describes how Fennel has evolved with time."]]
 
                [:h2 {} "Development"]
                [:p {} "Fennel's repository is on "
