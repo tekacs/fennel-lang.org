@@ -53,11 +53,30 @@ local history = {}
 local historyIndex = nil
 local historyLimit = 100
 
+local function highlightLines(target, elements)
+   for i = 0, #elements-1 do
+      if tonumber(elements[i]:getAttribute("history")) == target then
+	 elements[i].style.backgroundColor = (elements[i].style.backgroundColor == "") and "pink" or ""
+      else
+	 elements[i].style.backgroundColor = ""
+      end
+   end
+end
+
 local function makeLine(...)
     local toprint = pack(...)
 
     local line = document:createElement("pre")
     line.style["white-space"] = "pre-wrap"
+
+    line:setAttribute("history", #history)
+
+    line.onclick = function()
+       local n = tonumber(line:getAttribute("history"))
+
+       highlightLines(n, output.children)
+       highlightLines(n, luacode.children)
+    end
 
     for i = 1, toprint.n do
         if i ~= 1 then
