@@ -85,13 +85,9 @@ tt, pre, code, kbd { font-family: "Fira Mono", Inconsolata, monospace; }
 }
 
 #toggle-compiled-code {
-    font-size: 12pt;
-    transform: rotate(90deg);
-    text-align: center;
-    width: 200px;
-    height: 3em;
-    position: absolute;
-    right: -30px;
+    font-size: 10pt;
+    border-radius: 0 0 3px 3px;
+    border: 2px solid #ddd;
 }
 
 /* code sample */

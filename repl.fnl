@@ -10,11 +10,10 @@
 (local luapane (: js.global.document :getElementById "lua-pane"))
 (local toggle-btn (: js.global.document :getElementById "toggle-compiled-code"))
 
-(set toggle-btn.onclick
-  (fn []
-    (if (= luapane.style.display "flex")
+(fn toggle-btn.onclick []
+  (if (= luapane.style.display "flex")
       (set luapane.style.display "none")
-      (set luapane.style.display "flex"))))
+      (set luapane.style.display "flex")))
 
 (var last-input nil)
 (var last-value nil)

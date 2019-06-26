@@ -53,7 +53,7 @@ local history = {}
 local historyIndex = nil
 local historyLimit = 100
 
-_G.makeLine = function(...)
+local function makeLine(...)
     local toprint = pack(...)
 
     local line = document:createElement("pre")
@@ -70,7 +70,7 @@ _G.makeLine = function(...)
 end
 
 _G.printLuacode = function(...)
-   local line = _G.makeLine(...)
+   local line = makeLine(...)
 
    luacode:appendChild(line)
    luacode.scrollTop = luacode.scrollHeight
@@ -78,7 +78,7 @@ _G.printLuacode = function(...)
 end
 
 _G.print = function(...)
-   local line = _G.makeLine(...)
+   local line = makeLine(...)
 
    output:appendChild(line)
    output.scrollTop = output.scrollHeight
@@ -89,7 +89,7 @@ _G.print(welcome)
 _G.printLuacode("Compiled Lua code")
 
 _G.narrate = function(...)
-    local line = _G.makeLine(...)
+    local line = makeLine(...)
     line.style.color = "blue"
 
     output:appendChild(line)
@@ -99,7 +99,7 @@ _G.narrate = function(...)
 end
 
 _G.printError = function(...)
-   local line = _G.makeLine(...)
+   local line = makeLine(...)
    line.style.color = "red"
 
    output:appendChild(line)

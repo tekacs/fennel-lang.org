@@ -82,12 +82,11 @@
                   [:div {:class "fengari-input-container"}
                    [:label {:id "fengari-prompt" :for "fengari-input"} "> "]
                    [:textarea {:class "lua" :id "fengari-input" :rows 1
-                               :placeholder "Type code here..."}]]]
+                               :placeholder "Type code here..."}]
+                   [:button {:id "toggle-compiled-code"}
+                    "Toggle Lua code"]]]
                 [:div {:class "code code-flex" :id "lua-pane"}
-                 [:code {:id "compiled-lua"}]]
-                [:div {:class "code-flex button-container"}
-                 [:button {:id "toggle-compiled-code"}
-                  "Toggle Lua code"]]]
+                 [:code {:id "compiled-lua"}]]]
 
                [:h2 {} "Documentation"]
                [:ul {}
