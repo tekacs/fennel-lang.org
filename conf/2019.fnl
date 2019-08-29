@@ -45,6 +45,11 @@
       [:hr {}]
       [:h3 {} "See how much fun we had in: " [:a {:href "/2018"} "2018"]]
 
+      [:hr {}]
+      [:p {} "The "
+       [:a {:href
+            "https://github.com/bakpakin/Fennel/blob/master/CODE-OF-CONDUCT.md"}
+        "code of conduct"] " for Fennel applies at FennelConf."]
       [:p {} [:a {:href (.. "https://github.com/technomancy/"
                             "fennel-lang.org/tree/master/conf")}
               "source"]]]]

@@ -6,21 +6,28 @@ generate.lua: fennel/generate.fnl ; fennel/fennel --compile $^ > $@
 HTML := tutorial.html api.html reference.html lua-primer.html changelog.html index.html
 LUA := generate.lua fennelview.lua
 
+# TODO: upgrade to pandoc 2.0+ and add --syntax-definition fennel-syntax.xml
 PANDOC=pandoc -H head.html -A foot.html -T "Fennel"
 
-# TODO: upgrade to pandoc 2.0+ and add --syntax-definition fennel-syntax.xml
-tutorial.html: fennel/tutorial.md ; $(PANDOC) -o $@ $^
-api.html: fennel/api.md ; $(PANDOC) -o $@ $^
-reference.html: fennel/reference.md ; $(PANDOC) -o $@ $^
-lua-primer.html: fennel/lua-primer.md ; $(PANDOC) -o $@ $^
-changelog.html: fennel/changelog.md ; $(PANDOC) -o $@ $^
+%.html: fennel/%.md ; $(PANDOC) -o $@ $^
+
+TAGS := 0.1.0 0.1.1 0.2.0 0.2.1
+fennel/v%: ; git clone --branch $* fennel $@
+fennel/master: ; git clone --branch master fennel $@
+tags: $(addprefix fennel/v,$(TAGS)) ; $(foreach tag, $(TAGS), mkdir -p v${tag})
+
+# TODO: this expands to master/tutorial.html, but for some reason it doesn't match
+# the %.html rule we defined above??
+TAGDOCS := $(foreach tag, $(TAGS), $(addprefix v${tag}-, $(HTML))) \
+	$(addprefix master/, $(HTML))
 
 build: $(HTML) $(LUA)
 html: $(HTML)
+tagdocs: tags $(TAGDOCS)
 lua: $(LUA)
 clean: ; rm -f $(HTML) $(LUA)
 
-upload: $(HTML) $(LUA) init.lua repl.fnl fennel.css fengari-web.js .htaccess fennel
+upload: $(HTML) $(LUA) $(TAGDOCS) init.lua repl.fnl fennel.css fengari-web.js .htaccess fennel
 	rsync -r $^ fenneler@fennel-lang.org:fennel-lang.org/
 
 conf/%.html: conf/%.fnl ; fennel/fennel $^ > $@
@@ -43,4 +50,4 @@ pullsignups:
 	ls signups/ | wc -l
 	fennel signups.fnl
 
-.PHONY: build html lua clean upload uploadv uploadconf pullsignups
+.PHONY: build html tags tagdocs lua clean upload uploadv uploadconf pullsignups
