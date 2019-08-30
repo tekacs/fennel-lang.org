@@ -178,7 +178,7 @@
   <general>
     <keywords casesensitive="1" weakDeliminator="-+*?!&lt;&gt;=/:#\"/>
     <comments>
-      <comment name="singleLine" start=";;" />
+      <comment name="singleLine" start=";" />
     </comments>
   </general>
 </language>
