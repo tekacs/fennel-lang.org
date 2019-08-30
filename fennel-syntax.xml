@@ -33,6 +33,7 @@
       <item>var</item>
       <item>global</item>
       <item>local</item>
+      <item>macros</item>
     </list>
     <list name="keywords">
       <item>require-macros</item>
@@ -40,7 +41,9 @@
       <item>do</item>
       <item>values</item>
       <item>if</item>
+      <item>match</item>
       <item>when</item>
+      <item>doto</item>
       <item>each</item>
       <item>for</item>
       <item>partial</item>
@@ -59,6 +62,12 @@
       <item>:</item>
       <item>-&gt;</item>
       <item>-&gt;&gt;</item>
+      <item>-?&gt;</item>
+      <item>-?&gt;&gt;</item>
+      <item>comment</item>
+      <item>hashfn</item>
+
+      <item>lua</item>
 
       <item>_G</item>
       <item>_VERSION</item>
