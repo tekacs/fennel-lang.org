@@ -27,7 +27,7 @@ build: html lua tagdocs
 html: $(HTML) index.html
 tagdocs: tags $(TAGDOCS)
 lua: $(LUA)
-clean: cleantagdirs ; rm -f $(HTML) $(LUA)
+clean: cleantagdirs ; rm -f $(HTML) index.html $(LUA)
 
 upload: $(HTML) $(LUA) $(TAGDOCS) init.lua repl.fnl fennel.css fengari-web.js .htaccess fennel
 	rsync -r $^ fenneler@fennel-lang.org:fennel-lang.org/
