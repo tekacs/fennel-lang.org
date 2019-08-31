@@ -50,10 +50,10 @@
                ;; TODO: add multiple selection of snippets like python.org
                ;; maybe we can show lua output for each; see "modal" on
                ;; http://youmightnotneedjs.com/
-               (let [f (io.open "sample.html" "r")
-                     sample (: f :read "*all")]
-                 (: f :close)
-                 sample)
+               [:NO-ESCAPE (let [f (io.open "sample.html" "r")
+                                 sample (: f :read "*all")]
+                             (: f :close)
+                             sample)]
 
                [:h2 {} "Usage"]
 
