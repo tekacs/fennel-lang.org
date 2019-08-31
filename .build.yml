@@ -1,0 +1,10 @@
+image: debian/buster
+packages:
+  - lua5.3
+  - make
+  - pandoc
+  - git
+  - rsync
+tasks:
+- upload: |
+   cd fennel-lang.org && make build
