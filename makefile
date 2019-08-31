@@ -6,8 +6,8 @@ generate.lua: fennel/generate.fnl ; fennel/fennel --compile $^ > $@
 HTML := tutorial.html api.html reference.html lua-primer.html changelog.html
 LUA := generate.lua fennelview.lua
 
-# TODO: upgrade to pandoc 2.0+ and add --syntax-definition fennel-syntax.xml
-PANDOC=pandoc -H head.html -A foot.html -T "Fennel"
+PANDOC=pandoc --syntax-definition fennel-syntax.xml \
+	-H head.html -A foot.html -T "Fennel"
 
 %.html: fennel/%.md ; $(PANDOC) -o $@ $^
 
@@ -29,7 +29,7 @@ tagdocs: tags $(TAGDOCS)
 lua: $(LUA)
 clean: cleantagdirs ; rm -f $(HTML) index.html $(LUA)
 
-upload: $(HTML) $(LUA) $(TAGDOCS) init.lua repl.fnl fennel.css fengari-web.js .htaccess fennel
+upload: $(HTML) $(LUA) $(TAGDIRS) init.lua repl.fnl fennel.css fengari-web.js .htaccess fennel
 	rsync -r $^ fenneler@fennel-lang.org:fennel-lang.org/
 
 conf/%.html: conf/%.fnl ; fennel/fennel $^ > $@

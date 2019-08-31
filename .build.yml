@@ -5,6 +5,10 @@ packages:
   - pandoc
   - git
   - rsync
+secrets:
+  - d416aa2c-8e70-4baa-8ac8-6a56673cf39f
 tasks:
 - upload: |
-   cd fennel-lang.org && make build
+    cd fennel-lang.org
+    cp .known_hosts ~/.ssh/known_hosts
+    make build upload
