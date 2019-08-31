@@ -5,9 +5,9 @@
 (print (html [:html {:lang "en"}
               [:head {}
                [:meta {:charset "UTF-8"}]
-               [:script {:src "fengari-web.js"}]
-               [:script {:type "application/lua" :src "init.lua" :async true}]
-               [:link {:rel "stylesheet" :href "fennel.css"}]
+               [:script {:src "/fengari-web.js"}]
+               [:script {:type "application/lua" :src "/init.lua" :async true}]
+               [:link {:rel "stylesheet" :href "/fennel.css"}]
                [:link {:rel "stylesheet"
                        :href "https://code.cdn.mozilla.net/fonts/fira.css"}]
                [:title {} "the Fennel programming language"]]
