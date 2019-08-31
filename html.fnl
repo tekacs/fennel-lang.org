@@ -1,5 +1,5 @@
 ;; A *very* basic HTML generation library.
-;; No escaping features; never use this on user input!
+;; Basic escaping features only; never use this on user input!
 
 (local map (fn [f tbl]
              (let [out {}]
@@ -22,9 +22,25 @@
              (let [attr-str (table.concat (map-kv to-attr attrs) " ")]
                (.. "<" tag-name " " attr-str">"))))
 
+(local entity-replacements {"&" "&amp;" ; must be first!
+                            "<" "&lt;"
+                            ">" "&gt;"
+                            '"' "&quot;"})
+
+(local entity-search (let [result []]
+                       (each [k _ (pairs entity-replacements)]
+                             (table.insert result k))
+                       (.. "[" (table.concat result "") "]")))
+
+(local escape (fn [s]
+                  (assert (= (type s) "string"))
+                  (: s :gsub entity-search entity-replacements)))
+
 (fn html [doc]
   (if (= (type doc) "string")
-      doc
+      (escape doc)
+      (= (. doc 1) :NO-ESCAPE)
+      (. doc 2)
       (let [[tag-name attrs & body] doc]
         (.. (tag tag-name attrs)
             (table.concat (map html body) " ")
