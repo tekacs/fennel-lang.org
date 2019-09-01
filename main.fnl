@@ -116,7 +116,7 @@
                 " for collecting ideas."]
 
                [:hr {}]
-               [:p {} "Fennel is copyright &copy; 2016-2019 Calvin Rose and "
+               [:p {} "Fennel is copyright © 2016-2019 Calvin Rose and "
                 [:a {:href "https://github.com/bakpakin/Fennel/graphs/contributors"}
                  "contributors."] "released under the MIT/X11 license. "
                 "This website is under the same terms and also stored on"
