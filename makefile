@@ -6,6 +6,7 @@ generate.lua: fennel/generate.fnl ; fennel/fennel --compile $^ > $@
 HTML := tutorial.html api.html reference.html lua-primer.html changelog.html
 LUA := generate.lua fennelview.lua
 
+# This requires pandoc 2.0+
 PANDOC=pandoc --syntax-definition fennel-syntax.xml \
 	-H head.html -A foot.html -T "Fennel"
 
@@ -19,8 +20,6 @@ tagdirs: ; $(foreach tagdir, $(TAGDIRSS), mkdir -p ${tagdir})
 cleantagdirs: ; $(foreach tagdir, $(TAGDIRS), rm -rf ${tagdir})
 tags: tagdirs $(foreach tagdir, $(TAGDIRS), ${tagdir}/fennel)
 
-# TODO: this expands to master/tutorial.html, but for some reason it doesn't match
-# the %.html rule we defined above??
 TAGDOCS := $(foreach tagdir, $(TAGDIRS), $(addprefix ${tagdir}/, $(HTML)))
 
 build: html lua tagdocs

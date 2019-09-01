@@ -15,8 +15,9 @@
        [:a {:href
             "https://github.com/bakpakin/Fennel/blob/master/CODE-OF-CONDUCT.md"}
         "code of conduct"] " for Fennel applies at FennelConf."]
-      [:p {} [:a {:href (.. "https://github.com/technomancy/"
-                            "fennel-lang.org/tree/master/conf")}
+      [:p {} [:a {:href (.. "https://git.sr.ht/~technomancy/fennel-lang.org/"
+                            "tree/master/conf/2020.fnl"
+                            )}
               "source"]]]]
     (html)
     (print))
