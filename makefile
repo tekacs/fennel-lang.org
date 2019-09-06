@@ -1,6 +1,6 @@
 TAGS := $(shell git --git-dir=./fennel/.git tag -l | grep '^[0-9]' | tac)
 
-index.html: main.fnl sample.html ; fennel/fennel main.fnl > index.html
+index.html: main.fnl sample.html ; fennel/fennel main.fnl $(TAGS) > index.html
 fennelview.lua: fennel/fennelview.fnl ; fennel/fennel --compile $^ > $@
 generate.lua: fennel/generate.fnl ; fennel/fennel --compile $^ > $@
 
