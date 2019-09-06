@@ -101,6 +101,12 @@
                 [:li {} "The" [:a {:href "/changelog"} "Changelog"]
                  "describes how Fennel has evolved with time."]]
 
+               [:p {} "Looking for other versions?  Docs are generated for:"]
+               (let [version-links [:ul {}]]
+                 (each [i version (ipairs arg)]
+                       (table.insert version-links [:li {} [:a {:href version} version]]))
+                 version-links)
+
                [:h2 {} "Development"]
                [:p {} "Fennel's repository is on "
                 [:a {:href "https://github.com/bakpakin/Fennel"} "GitHub"]
