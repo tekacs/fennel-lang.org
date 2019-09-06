@@ -1,3 +1,5 @@
+TAGS := $(shell git --git-dir=./fennel/.git tag -l | grep '^[0-9]' | tac)
+
 index.html: main.fnl sample.html ; fennel/fennel main.fnl > index.html
 fennelview.lua: fennel/fennelview.fnl ; fennel/fennel --compile $^ > $@
 generate.lua: fennel/generate.fnl ; fennel/fennel --compile $^ > $@
@@ -12,7 +14,6 @@ PANDOC=pandoc --syntax-definition fennel-syntax.xml \
 
 %.html: fennel/%.md ; $(PANDOC) -o $@ $^
 
-TAGS := 0.1.0 0.1.1 0.2.0 0.2.1
 TAGDIRS := $(foreach tag, $(TAGS), v${tag}) master
 v%/fennel: ; git clone --branch $* fennel $@
 master/fennel: ; git clone --branch master fennel $@
