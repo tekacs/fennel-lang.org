@@ -25,7 +25,7 @@
 (local entity-replacements {"&" "&amp;" ; must be first!
                             "<" "&lt;"
                             ">" "&gt;"
-                            '"' "&quot;"})
+                            "\"" "&quot;"})
 
 (local entity-search (let [result []]
                        (each [k _ (pairs entity-replacements)]
@@ -36,12 +36,12 @@
                   (assert (= (type s) "string"))
                   (: s :gsub entity-search entity-replacements)))
 
-(fn html [doc]
-  (if (= (type doc) "string")
-      (escape doc)
-      (= (. doc 1) :NO-ESCAPE)
-      (. doc 2)
-      (let [[tag-name attrs & body] doc]
+(fn html [document]
+  (if (= (type document) "string")
+      (escape document)
+      (= (. document 1) :NO-ESCAPE)
+      (. document 2)
+      (let [[tag-name attrs & body] document]
         (.. (tag tag-name attrs)
             (table.concat (map html body) " ")
             "</" tag-name ">"))))
