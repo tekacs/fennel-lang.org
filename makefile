@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := build
 
-TAGS := $(shell git --git-dir=./fennel/.git tag -l | grep '^[0-9]' | tac)
+TAGS := $(shell git --git-dir=./fennel/.git tag -l | grep '^[0-9]' | grep -v - | tac)
 TAGDIRS := master $(foreach tag, $(TAGS), v${tag})
 
 # which fennel/$.md files build a tag index

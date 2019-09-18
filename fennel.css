@@ -16,6 +16,8 @@ tt, pre, code, kbd { font-family: "Fira Mono", Inconsolata, monospace; }
 
 #where li { display: inline; margin: 2em; }
 
+#versions li { display: inline; margin: 1em; }
+
 .outputs {
     display: flex;
     width: 100%;

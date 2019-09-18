@@ -102,9 +102,9 @@
                  "describes how Fennel has evolved with time."]]
 
                [:p {} "Looking for other versions?  Docs are generated for:"]
-               (let [version-links [:ul {}]]
-                 (each [i version (ipairs arg)]
-                       (table.insert version-links [:li {} [:a {:href version} version]]))
+               (let [version-links [:ul {:id "versions"}]]
+                 (each [i v (ipairs arg)]
+                   (table.insert version-links [:li {} [:a {:href v} v]]))
                  version-links)
 
                [:h2 {} "Development"]
