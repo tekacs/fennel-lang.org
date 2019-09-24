@@ -78,10 +78,12 @@
 
 (narrate "You can run any Fennel code here; try this: (print \"Hello world!\")")
 
-(partial fennel.repl {:readChunk (fn []
+(partial fennel.repl {:moduleName "fennel/fennel"
+                      :readChunk (fn []
                                    (let [input (coroutine.yield)]
                                      (set last-input input)
-                                     (printLuacode (fennel.compileString input))
+                                     (printLuacode (fennel.compileString input {:useMetadata true
+                                                                                :moduleName "fennel/fennel"}))
                                      (print (.. "> " input))
                                      (.. input "\n")))
                       :onValues (fn [xs]
