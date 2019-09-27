@@ -22,10 +22,11 @@ generate.lua: fennel/generate.fnl ; fennel/fennel --compile $^ > $@
 # TODO: for now all master and tags are generated the same;
 # there might be time, when we have "generations" of fennel
 # TODO: dedupe v% and master setup here
+%/tag-intro.md: ; fennel/fennel tag-intro.fnl $@ > $@
 v%/fennel: ; git clone --branch $* fennel $@
-v%/index.html: $(foreach md, $(TAGSOURCES), v%/fennel/${md}.md); $(PANDOC) -o $@ $^
+v%/index.html: v%/tag-intro.md $(foreach md, $(TAGSOURCES), v%/fennel/${md}.md); $(PANDOC) -o $@ $^
 master/fennel: ; git clone --branch master fennel $@
-master/index.html: $(foreach md, $(TAGSOURCES), master/fennel/${md}.md); $(PANDOC) -o $@ $^
+master/index.html: master/tag-intro.md $(foreach md, $(TAGSOURCES), master/fennel/${md}.md); $(PANDOC) -o $@ $^ && rm master/tag-intro.md
 
 tagdirs: ; $(foreach tagdir, $(TAGDIRSS), mkdir -p ${tagdir})
 cleantagdirs: ; $(foreach tagdir, $(TAGDIRS), rm -rf ${tagdir})
