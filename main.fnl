@@ -104,7 +104,7 @@
                [:p {} "Looking for other versions?  Docs are generated for:"]
                (let [version-links [:ul {:id "versions"}]]
                  (each [i v (ipairs arg)]
-                   (table.insert version-links [:li {} [:a {:href v} v]]))
+                   (table.insert version-links [:li {} [:a {:href (.. "/" v "/")} v]]))
                  version-links)
 
                [:h2 {} "Development"]
