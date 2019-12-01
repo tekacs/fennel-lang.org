@@ -90,8 +90,8 @@
 
                [:h2 {} "Documentation"]
                [:ul {}
-                [:li {} "Get started with"
-                 [:a {:href "/tutorial"} "the Tutorial."]]
+                [:li {} "The" [:a {:href "/tutorial"} "Tutorial"]
+                 "is a good place to start."]
                 [:li {} "The" [:a {:href "/lua-primer"} "Lua primer"]
                  "will catch you up if you don't already know Lua."]
                 [:li {} "The" [:a {:href "/reference"} "Reference"] "lists "
