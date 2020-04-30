@@ -11,12 +11,14 @@ LUA := generate.lua fennelview.lua
 
 # This requires pandoc 2.0+
 PANDOC=pandoc --syntax-definition fennel-syntax.xml \
-	-H head.html -A foot.html -T "Fennel"
+	-H head.html -A foot.html -T "Fennel" \
+	--lua-filter=promote-h1-to-title.lua
 
 index.html: main.fnl sample.html ; fennel/fennel main.fnl $(TAGDIRS) > index.html
 fennelview.lua: fennel/fennelview.fnl ; fennel/fennel --compile $^ > $@
 generate.lua: fennel/generate.fnl ; fennel/fennel --compile $^ > $@
 
+reference.html: fennel/reference.md ; $(PANDOC) --toc -o $@ $^
 %.html: fennel/%.md ; $(PANDOC) -o $@ $^
 
 # TODO: for now all master and tags are generated the same;
