@@ -8,8 +8,8 @@
       [:h1 {} "FennelConf 2020"]
       [:p {} [:b {} "Location:"] "Portland, OR, probably?"]
       [:p {} [:b {} "Time:"] "???"]
-      [:p {} "Well, it will probably be in February of 2020 but ..."
-       " we'll need a little more time to figure out the details."]
+      [:p {} "Well, it was going to be in spring of 2020 but ..."
+       " we'll need a little more time to figure out the details now."]
       [:hr {}]
       [:p {} "The "
        [:a {:href
