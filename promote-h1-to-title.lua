@@ -1,16 +1,14 @@
 local title
 
--- Promote all headers by one level. Set title from level 1 headers,
--- unless it has been set before.
+-- Set title from level 1 headers, unless it has been set before.
 function promote_header (header)
-
   if header.level >= 2 then
     return header
   end
 
   if not title then
     title = header.content
-    return nil
+    return {}
   end
 
   local msg = '[WARNING] title already set; demoting header "%s"\n'
