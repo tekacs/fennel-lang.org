@@ -63,7 +63,7 @@
 
                [:pre {}
                 [:kbd {} (.. "    $ git clone https://github.com/bakpakin/Fennel"
-                             " && cd Fennel"
+                             "\n    $ cd Fennel && make fennel"
                              "\n    $ ./fennel --compile code.fnl > code.lua"
                              "\n    $ ./fennel --repl"
                              "\n    $ ./fennel code.fnl")]]
@@ -90,8 +90,10 @@
 
                [:h2 {} "Documentation"]
                [:ul {}
+                ;; [:li {} "The" [:a {:href "/setup"} "Setup guide"]
+                ;;  "is a good place to start."]
                 [:li {} "The" [:a {:href "/tutorial"} "Tutorial"]
-                 "is a good place to start."]
+                 "teaches you the basics of the language"]
                 [:li {} "The" [:a {:href "/lua-primer"} "Lua primer"]
                  "will catch you up if you don't already know Lua."]
                 [:li {} "The" [:a {:href "/reference"} "Reference"] "lists "
@@ -122,7 +124,7 @@
                 " for collecting ideas."]
 
                [:hr {}]
-               [:p {} "Fennel is copyright © 2016-2019 Calvin Rose and "
+               [:p {} "Fennel is copyright © 2016-2020 Calvin Rose and "
                 [:a {:href "https://github.com/bakpakin/Fennel/graphs/contributors"}
                  "contributors."] "released under the MIT/X11 license. "
                 "This website is under the same terms and also stored on"

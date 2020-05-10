@@ -14,31 +14,49 @@ PANDOC=pandoc --syntax-definition fennel-syntax.xml \
 	-H head.html -A foot.html -T "Fennel" \
 	--lua-filter=promote-h1-to-title.lua
 
-index.html: main.fnl sample.html ; fennel/fennel main.fnl $(TAGDIRS) > index.html
-fennelview.lua: fennel/fennelview.fnl ; fennel/fennel --compile $^ > $@
-generate.lua: fennel/generate.fnl ; fennel/fennel --compile $^ > $@
+fennel/fennel: ; make -C fennel fennel
+
+index.html: main.fnl sample.html fennel/fennel
+	fennel/fennel main.fnl $(TAGDIRS) > index.html
+%.lua: fennel/%.fnl fennel/fennel ; fennel/fennel --compile $< > $@
 
 reference.html: fennel/reference.md ; $(PANDOC) --toc -o $@ $^
 %.html: fennel/%.md ; $(PANDOC) -o $@ $^
 
 # TODO: for now all master and tags are generated the same;
 # there might be time, when we have "generations" of fennel
-# TODO: dedupe v% and master setup here
-%/tag-intro.md: ; fennel/fennel tag-intro.fnl $@ > $@
+
+%/tag-intro.md: fennel/fennel ; fennel/fennel tag-intro.fnl $@ > $@
 %/repl.md: repl.md ; cp $^ $@
 %/init.lua: init.lua ; cp $^ $@
 %/repl.fnl: repl.fnl ; cp $^ $@
-%/fennelview.lua: %/fennel/fennelview.fnl ; $*/fennel/fennel --compile $^ > $@
-%/generate.lua: %/fennel/generate.fnl ; $*/fennel/fennel --compile $^ > $@
-v%/fennel: ; git clone --branch $* fennel $@
-v%/index.html: v%/tag-intro.md v%/repl.md $(foreach md, $(TAGSOURCES), v%/fennel/${md}.md); $(PANDOC) -o $@ $^
-master/fennel: ; git clone --branch master fennel $@
-master/index.html: master/tag-intro.md master/repl.md $(foreach md, $(TAGSOURCES), master/fennel/${md}.md); $(PANDOC) -o $@ $^ && rm master/tag-intro.md
+%/fennelview.lua: %/fennel/fennelview.fnl %/fennel/fennel
+	$*/fennel/fennel --compile $< > $@
+%/generate.lua: %/fennel/generate.fnl %/fennel/fennel
+	$*/fennel/fennel --compile $< > $@
+
+v%/fennel:
+	git clone --branch $* fennel $@
+	make -C $(@D) fennel
+
+master/fennel:
+	git clone --branch master fennel $@
+	make -C $(@D) fennel
+
+v%/index.html: v%/tag-intro.md v%/repl.md $(foreach md, $(TAGSOURCES), \
+		v%/fennel/${md}.md)
+	$(PANDOC) -o $@ $^
+
+master/index.html: master/tag-intro.md master/repl.md \
+		$(foreach md, $(TAGSOURCES), master/fennel/${md}.md)
+	$(PANDOC) -o $@ $^ && rm master/tag-intro.md
 
 tagdirs: ; $(foreach tagdir, $(TAGDIRSS), mkdir -p ${tagdir})
 cleantagdirs: ; $(foreach tagdir, $(TAGDIRS), rm -rf ${tagdir})
 tags: tagdirs $(foreach tagdir, $(TAGDIRS), ${tagdir}/fennel)
-TAGDOCS := $(foreach tagdir, $(TAGDIRS), $(foreach file, index.html init.lua repl.fnl fennelview.lua generate.lua, ${tagdir}/${file}))
+TAGDOCS := $(foreach tagdir, $(TAGDIRS), \
+	$(foreach file, index.html init.lua repl.fnl fennelview.lua generate.lua, \
+		${tagdir}/${file}))
 
 build: html lua tagdocs
 html: $(HTML) index.html
@@ -50,12 +68,12 @@ upload: $(HTML) $(LUA) $(TAGDIRS) index.html init.lua repl.fnl fennel.css \
 		fengari-web.js .htaccess fennel
 	rsync -r $^ fenneler@fennel-lang.org:fennel-lang.org/
 
-conf/%.html: conf/%.fnl ; fennel/fennel $^ > $@
+conf/%.html: conf/%.fnl fennel/fennel ; fennel/fennel $< > $@
 
-conf/thanks.html: conf/thanks.fnl ; fennel/fennel $^ > $@
-conf/signup.cgi: conf/signup.fnl
+conf/thanks.html: conf/thanks.fnl fennel/fennel ; fennel/fennel $< > $@
+conf/signup.cgi: conf/signup.fnl fennel/fennel
 	echo "#!/usr/bin/env lua" > $@
-	fennel/fennel --compile $^ >> $@
+	fennel/fennel --compile $< >> $@
 	chmod 755 $@
 
 uploadconf: conf/*.html conf/*.jpg conf/.htaccess fennelview.lua conf/signup.cgi
