@@ -90,8 +90,8 @@
 
                [:h2 {} "Documentation"]
                [:ul {}
-                ;; [:li {} "The" [:a {:href "/setup"} "Setup guide"]
-                ;;  "is a good place to start."]
+                [:li {} "The" [:a {:href "/setup"} "Setup guide"]
+                 "is a good place to start."]
                 [:li {} "The" [:a {:href "/tutorial"} "Tutorial"]
                  "teaches you the basics of the language."]
                 [:li {} "The" [:a {:href "/lua-primer"} "Lua primer"]
@@ -114,9 +114,12 @@
                 [:a {:href "https://github.com/bakpakin/Fennel"} "GitHub"]
                 ", and discussion occurs on "
                 [:a {:href "https://lists.sr.ht/%7Etechnomancy/fennel"}
-                 "the mailing list"] " and "
-                [:a {:href "https://webchat.freenode.net/"} "the #fennel channel"]
-                " on Freenode. "
+                 "the mailing list"]
+                " and the #fennel channel"
+                [:a {:href "https://webchat.freenode.net/"} "on Freenode"]
+                " and "
+                [:a {:href "https://matrix.to/#/!rnpLWzzTijEUDhhtjW:matrix.org"}
+                 "on Matrix"] "."
                 [:a {:href "https://github.com/bakpakin/Fennel/issues"}
                  "Bug reports"] "are tracked in the GitHub issue system."]
                [:p {} "There is also"
