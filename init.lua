@@ -2,7 +2,7 @@
 -- https://github.com/fengari-lua/fengari.io/blob/master/static/lua/web-cli.lua
 package.path = "./?.lua"
 local js = require "js"
-os.getenv = function() end -- fennel 0.3.0 won't load without this
+os.getenv = function() return nil end -- fennel 0.3.0 won't load without this
 local fennel = require "fennel/fennel"
 
 local welcome = "Welcome to Fennel " .. fennel.version ..
