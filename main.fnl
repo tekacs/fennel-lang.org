@@ -132,4 +132,4 @@
                  "contributors."] "released under the MIT/X11 license. "
                 "This website is under the same terms and also stored on"
                 [:a {:href "https://git.sr.ht/~technomancy/fennel-lang.org"}
-                 "srht."]]]]))
+                 "sourcehut."]]]]))
