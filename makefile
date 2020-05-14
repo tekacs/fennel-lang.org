@@ -7,7 +7,7 @@ TAGDIRS := master $(foreach tag, $(TAGS), v${tag})
 TAGSOURCES := changelog reference api
 
 HTML := tutorial.html api.html reference.html lua-primer.html changelog.html setup.html
-LUA := generate.lua fennelview.lua
+LUA := generate.lua fennelview.lua fennelfriend.lua
 
 # This requires pandoc 2.0+
 PANDOC=pandoc --syntax-definition fennel-syntax.xml \
@@ -31,6 +31,8 @@ reference.html: fennel/reference.md ; $(PANDOC) --toc -o $@ $^
 %/init.lua: init.lua ; cp $^ $@
 %/repl.fnl: repl.fnl ; cp $^ $@
 %/fennelview.lua: %/fennel/fennelview.fnl %/fennel/fennel
+	$*/fennel/fennel --compile $< > $@
+%/fennelfriend.lua: %/fennel/fennelfriend.fnl %/fennel/fennel
 	$*/fennel/fennel --compile $< > $@
 %/generate.lua: %/fennel/generate.fnl %/fennel/fennel
 	$*/fennel/fennel --compile $< > $@

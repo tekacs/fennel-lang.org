@@ -78,6 +78,8 @@
 
 (narrate "You can run any Fennel code here; try this: (print \"Hello world!\")")
 
+(local friend (require :fennelfriend))
+
 (partial fennel.repl {:moduleName "fennel/fennel"
                       :readChunk (fn []
                                    (let [input (coroutine.yield)]
@@ -93,4 +95,7 @@
                       ;; TODO: make errors red
                       ;; TODO: log errors for analysis?
                       :onError (fn [_ msg] (printError msg))
+                      :pp (require :fennelview)
+                      :assert-compile friend.assert-compile
+                      :parse-error friend.parse-error
                       :env env})

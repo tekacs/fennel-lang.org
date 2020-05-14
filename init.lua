@@ -30,6 +30,7 @@ io={open=function(filename)
 end}
 
 package.preload.fennelview = assert(loadfile("fennelview.lua"))
+package.preload.fennelfriend = assert(loadfile("fennelfriend.lua"))
 package.preload.generate = assert(loadfile("generate.lua"))
 
 -- Save references to lua baselib functions used
@@ -189,3 +190,4 @@ function input.onkeydown(_, e)
     end
 end
 
+return repl
