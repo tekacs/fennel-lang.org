@@ -84,8 +84,9 @@
                       :readChunk (fn []
                                    (let [input (coroutine.yield)]
                                      (set last-input input)
-                                     (printLuacode (fennel.compileString input {:useMetadata true
-                                                                                :moduleName "fennel/fennel"}))
+                                     ;; TODO: pass scope in here somehow
+                                     (printLuacode
+                                      (pcall fennel.compileString input))
                                      (print (.. "> " input))
                                      (.. input "\n")))
                       :onValues (fn [xs]
