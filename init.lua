@@ -31,7 +31,6 @@ end}
 
 package.preload.fennelview = assert(loadfile("fennelview.lua"))
 package.preload.fennelfriend = assert(loadfile("fennelfriend.lua"))
-package.preload.generate = assert(loadfile("generate.lua"))
 
 -- Save references to lua baselib functions used
 local _G = _G
