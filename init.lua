@@ -2,17 +2,14 @@
 -- https://github.com/fengari-lua/fengari.io/blob/master/static/lua/web-cli.lua
 package.path = "./?.lua"
 local js = require "js"
-os.getenv = function() return nil end -- fennel 0.3.0 won't load without this
-local fennel = require "fennel/fennel"
 
-local welcome = "Welcome to Fennel " .. fennel.version ..
-   ", running on Fengari (" .. _VERSION .. ")"
+local welcome = nil
 
 -- the hacks below are needed specifically to get the Fennel test suite to pass
 
 -- just make a few things not blow up
 _G.os.exit = function() end
-_G.os.getenv = function() end
+_G.os.getenv = function() return nil end
 
 -- require-macros depends on io.open; we splice in a hacky replacement
 io={open=function(filename)
@@ -105,9 +102,6 @@ _G.print = function(...)
    triggerEvent(output, "change")
 end
 
-_G.print(welcome)
-_G.printLuacode("Compiled Lua code")
-
 _G.narrate = function(...)
     local line = makeLine(...)
     line.style.color = "blue"
@@ -128,9 +122,23 @@ _G.printError = function(...)
    triggerEvent(output, "change")
 end
 
-local repl = coroutine.create(fennel.dofile("repl.fnl"))
+local repl
 
-coroutine.resume(repl)
+-- loading Fennel at the top level breaks scrolling because browsers
+-- are terrible; so we load when the input element gets focus
+function input.onfocus()
+   -- setting input.onfocus to nil has no effect, somehow
+   if repl ~= nil then return end
+   _G.print("Loading...")
+   local fennel = require("fennel/fennel")
+   package.loaded.fennel = fennel
+   repl = coroutine.create(fennel.dofile("repl.fnl"))
+   coroutine.resume(repl)
+   welcome = "Welcome to Fennel " .. fennel.version ..
+      ", running on Fengari (" .. _VERSION .. ")"
+   _G.print(welcome)
+   _G.printLuacode("Compiled Lua code")
+end
 
 function input.onkeydown(_, e)
     if not e then
