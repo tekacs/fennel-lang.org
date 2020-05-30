@@ -58,8 +58,7 @@
                [:h2 {} "Usage"]
 
                [:p {} "See the "
-                [:a {:href (.. "https://fennel-lang.org/setup"
-                               "#downloading-and-installing-fennel")}
+                [:a {:href (.. "https://fennel-lang.org/setup#downloading-fennel")}
                  "install instructions"] "in the setup guide."]
 
                [:h3 {} "That's too much work!"]
