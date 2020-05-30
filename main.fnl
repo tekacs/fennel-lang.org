@@ -57,16 +57,10 @@
 
                [:h2 {} "Usage"]
 
-               [:p {} "Install with"
-                [:a {:href "https://luarocks.org"} "LuaRocks"]
-                "or grab the Fennel repository and run it from there:"]
-
-               [:pre {}
-                [:kbd {} (.. "    $ git clone https://github.com/bakpakin/Fennel"
-                             "\n    $ cd Fennel && make fennel"
-                             "\n    $ ./fennel --compile code.fnl > code.lua"
-                             "\n    $ ./fennel --repl"
-                             "\n    $ ./fennel code.fnl")]]
+               [:p {} "See the "
+                [:a {:href (.. "https://fennel-lang.org/setup"
+                               "#downloading-and-installing-fennel")}
+                 "install instructions"] "in the setup guide."]
 
                [:h3 {} "That's too much work!"]
                [:p {} "Fine, you can use Fennel right here without installing"

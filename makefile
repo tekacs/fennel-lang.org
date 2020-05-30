@@ -89,4 +89,7 @@ pullsignups:
 	ls signups/ | wc -l
 	fennel signups.fnl
 
-.PHONY: build html tagdirs tagdocs lua clean cleantagdirs upload uploadv uploadconf pullsignups
+server: ; python -m SimpleHTTPServer 3003
+
+.PHONY: build html tagdirs tagdocs lua clean cleantagdirs server \
+		upload uploadv uploadconf pullsignups
