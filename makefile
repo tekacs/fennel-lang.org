@@ -20,8 +20,7 @@ index.html: main.fnl sample.html fennel/fennel
 	fennel/fennel main.fnl $(TAGDIRS) > index.html
 %.lua: fennel/%.fnl fennel/fennel ; fennel/fennel --compile $< > $@
 
-reference.html: fennel/reference.md ; $(PANDOC) --toc -o $@ $^
-%.html: fennel/%.md ; $(PANDOC) -o $@ $^
+%.html: fennel/%.md ; $(PANDOC) --toc -o $@ $^
 
 # TODO: for now all master and tags are generated the same;
 # there might be time, when we have "generations" of fennel
