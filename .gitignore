@@ -1,4 +1,5 @@
 /api.html
+/downloads
 /changelog.html
 /conf/2018.html
 /conf/2019.html
@@ -13,6 +14,7 @@
 /setup.html
 /signups
 /tutorial.html
+/conf/v/
 /master
 /v?.?.?*
 /fennelfriend.lua
