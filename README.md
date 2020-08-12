@@ -1,9 +1,9 @@
 # fennel-lang.org
 
-The [web site](https://fennel-lang.org) for the [Fennel programming language](https://github.com/bakpakin/Fennel).
+The [web site](https://fennel-lang.org) for the Fennel programming language.
 
-The documentation comes from the markdown files in the main Fennel
-repository pulled in via a submodule.
+The documentation comes from the markdown files in the [main Fennel
+repository](https://git.sr.ht/~technomancy/fennel) pulled in via a submodule.
 
 If you want to contribute to the project, please send patches to the
 [mailing list](https://lists.sr.ht/%7Etechnomancy/fennel) or open a
@@ -20,7 +20,7 @@ The `conf/` subdirectory contains the code for various years of the
 The HTML for the site is
 [built and uploaded in the CI](https://builds.sr.ht/~technomancy/fennel-lang.org).
 
-Copyright © 2018-2019 Phil Hagelberg and contributors
+Copyright © 2018-2020 Phil Hagelberg and contributors
 
 Released under the MIT/X11 license; same as Fennel
 

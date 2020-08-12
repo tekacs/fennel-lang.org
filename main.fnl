@@ -104,7 +104,7 @@
 
                [:h2 {} "Development"]
                [:p {} "Fennel's repository is on "
-                [:a {:href "https://github.com/bakpakin/Fennel"} "GitHub"]
+                [:a {:href "https://git.sr.ht/~technomancy/fennel"} "Sourcehut"]
                 ", and discussion occurs on "
                 [:a {:href "https://lists.sr.ht/%7Etechnomancy/fennel"}
                  "the mailing list"]
@@ -113,16 +113,17 @@
                 " and "
                 [:a {:href "https://matrix.to/#/!rnpLWzzTijEUDhhtjW:matrix.org"}
                  "on Matrix"] "."
-                [:a {:href "https://github.com/bakpakin/Fennel/issues"}
-                 "Bug reports"] "are tracked in the GitHub issue system."]
+                ;; [:a {:href "https://todo.sr.ht/~technomancy/fennel"}
+                ;;  "Bug reports"] "are tracked in Sourcehut."
+                ]
                [:p {} "There is also"
                 [:a {:href "https://github.com/bakpakin/Fennel/wiki"} "a wiki"]
                 " for collecting ideas."]
 
                [:hr {}]
                [:p {} "Fennel is copyright © 2016-2020 Calvin Rose and "
-                [:a {:href "https://github.com/bakpakin/Fennel/graphs/contributors"}
+                [:a {:href "https://git.sr.ht/~technomancy/fennel/contributors"}
                  "contributors."] "released under the MIT/X11 license. "
                 "This website is under the same terms and also stored on"
                 [:a {:href "https://git.sr.ht/~technomancy/fennel-lang.org"}
-                 "sourcehut."]]]]))
+                 "Sourcehut."]]]]))

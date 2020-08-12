@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := build
 
 TAGS := $(shell git --git-dir=./fennel/.git tag -l | grep '^[0-9]' | grep -v - | tac)
-TAGDIRS := master $(foreach tag, $(TAGS), v${tag})
+TAGDIRS := main $(foreach tag, $(TAGS), v${tag})
 
 # which fennel/$.md files build a tag index
 TAGSOURCES := changelog reference api
@@ -22,7 +22,7 @@ index.html: main.fnl sample.html fennel/fennel
 
 %.html: fennel/%.md ; $(PANDOC) --toc -o $@ $^
 
-# TODO: for now all master and tags are generated the same;
+# TODO: for now all main and tags are generated the same;
 # there might be time, when we have "generations" of fennel
 
 %/tag-intro.md: fennel/fennel ; fennel/fennel tag-intro.fnl $@ > $@
@@ -37,17 +37,17 @@ v%/fennel:
 	make -C $(@D) fennel
 	touch setup.md # not all tags have this
 
-master/fennel:
-	git clone --branch master fennel $@
+main/fennel:
+	git clone --branch main fennel $@
 	make -C $(@D) fennel
 
 v%/index.html: v%/tag-intro.md v%/repl.md $(foreach md, $(TAGSOURCES), \
 		v%/fennel/${md}.md)
 	$(PANDOC) -o $@ $^
 
-master/index.html: master/tag-intro.md master/repl.md \
-		$(foreach md, $(TAGSOURCES), master/fennel/${md}.md)
-	$(PANDOC) -o $@ $^ && rm master/tag-intro.md
+main/index.html: main/tag-intro.md main/repl.md \
+		$(foreach md, $(TAGSOURCES), main/fennel/${md}.md)
+	$(PANDOC) -o $@ $^ && rm main/tag-intro.md
 
 tagdirs: ; $(foreach tagdir, $(TAGDIRSS), mkdir -p ${tagdir})
 cleantagdirs: ; $(foreach tagdir, $(TAGDIRS), rm -rf ${tagdir})
