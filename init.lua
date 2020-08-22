@@ -11,21 +11,6 @@ local welcome = nil
 _G.os.exit = function() end
 _G.os.getenv = function() return nil end
 
--- require-macros depends on io.open; we splice in a hacky replacement
-io={open=function(filename)
-       return {
-          read = function(_, all)
-             assert(all=="*all", "Can only read *all.")
-             local xhr = js.new(js.global.XMLHttpRequest)
-             xhr:open("GET", filename, false)
-             xhr:send()
-             assert(xhr.status == 200, xhr.status .. ": " .. xhr.statusText)
-             return tostring(xhr.response)
-          end,
-          close = function() end,
-       }
-end}
-
 package.preload.fennelview = assert(loadfile("fennelview.lua"))
 
 -- Save references to lua baselib functions used
@@ -38,7 +23,9 @@ local output = document:getElementById("fengari-console")
 local prompt = document:getElementById("fengari-prompt")
 local input = document:getElementById("fengari-input")
 local luacode = document:getElementById("compiled-lua")
-assert(output and prompt and input and luacode)
+local luapane = document:getElementById("lua-pane")
+local togglebtn = document:getElementById("toggle-compiled-code")
+assert(output and prompt and input and luacode and luapane and togglebtn)
 
 local function triggerEvent(el, type)
     local e = document:createEvent("HTMLEvents")
@@ -121,27 +108,91 @@ _G.printError = function(...)
    triggerEvent(output, "change")
 end
 
-local repl
+local replWorker = { webWorkerNotStarted = true }
+local replWorkerLoaded = false
+local replStack = {}
+
+function replWorker.loadReplWithoutWebWorker()
+    local fennel = require("fennel/fennel")
+    package.loaded.fennel = fennel
+    return coroutine.create(fennel.dofile("repl.fnl"))
+end
 
 -- loading Fennel at the top level breaks scrolling because browsers
 -- are terrible; so we load when the input element gets focus
+
+function initReplWorker()
+    if input == nil then
+      js.global.console:log('input not exists...')
+      -- not running in a real web browser
+      return
+    end
+
+    input:setAttribute("disabled", "disabled")
+    input:setAttribute("placeholder", "0%")
+
+    _G.print("Loading...")
+
+    local percentage = 0
+
+    local loader = js.global:setInterval(function()
+      if not replWorkerLoaded and percentage < 99 then
+        percentage = percentage + 1
+        input:setAttribute("placeholder", percentage .. "%")
+      else
+        js.global:clearInterval(loader);
+      end
+    end, (10 * (1000)) / 100) -- Maximum expected time on a slow computer: 10s
+
+    replWorker = js.new(js.global.Worker, '/repl-worker.js')
+
+    replWorker.onmessage = function(_, message)
+        local content = message.data
+
+        local pipePosition = content:find('|')
+        local functionName = content:sub(1, pipePosition-1)
+
+        content = content:sub(pipePosition+1, #content)
+
+        pipePosition = content:find('|')
+
+        local command = content:sub(1, pipePosition-1)
+
+        content = content:sub(pipePosition+1, #content)
+
+        if command == 'append' then
+            if replStack[functionName] == nil then
+                replStack[functionName] = {}
+            end
+
+          table.insert(replStack[functionName], content)
+        elseif command == 'dispatch' then
+            _G[functionName](table.unpack(replStack[functionName]))
+
+            replStack[functionName] = {}
+        elseif command == 'loaded' then
+          js.global:clearInterval(loader);
+          replWorkerLoaded = true
+          input:removeAttribute("disabled")
+          input:setAttribute("placeholder", "Type code here...")
+          input:focus()
+        end
+    end
+end
+
 function input.onfocus()
-    -- setting input.onfocus to nil has no effect, somehow
-    if repl ~= nil then return end
-    _G.print("Loading Fennel...")
-    js.global:setTimeout(function()
-        local fennel = require("fennel/fennel")
-       package.loaded.fennel = fennel
-       _G.print("Loading REPL...")
-       js.global:setTimeout(function()
-           repl = coroutine.create(fennel.dofile("repl.fnl"))
-           assert(coroutine.resume(repl))
-           welcome = "Welcome to Fennel " .. fennel.version ..
-              ", running on Fengari (" .. _VERSION .. ")"
-           _G.print(welcome)
-           _G.printLuacode("Compiled Lua code")
-        end)
-    end)
+    if replWorker.webWorkerNotStarted then
+        replWorker.webWorkerNotStarted = false
+        initReplWorker()
+    end
+end
+
+togglebtn.onclick = function()
+    if luapane.style.display == 'flex' then
+        luapane.style.display = 'none'
+    else
+        luapane.style.display = 'flex'
+    end
 end
 
 function input.onkeydown(_, e)
@@ -159,7 +210,9 @@ function input.onkeydown(_, e)
                  table.remove(history, 1)
               end
            end
-           coroutine.resume(repl, input.value)
+
+           replWorker:postMessage(input.value)
+
            input.value = ""
         end
         return false
@@ -201,4 +254,4 @@ function input.onkeydown(_, e)
     end
 end
 
-return repl
+return replWorker
