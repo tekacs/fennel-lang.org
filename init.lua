@@ -132,7 +132,7 @@ function input.onfocus()
    local fennel = require("fennel/fennel")
    package.loaded.fennel = fennel
    repl = coroutine.create(fennel.dofile("repl.fnl"))
-   coroutine.resume(repl)
+   assert(coroutine.resume(repl))
    welcome = "Welcome to Fennel " .. fennel.version ..
       ", running on Fengari (" .. _VERSION .. ")"
    _G.print(welcome)
