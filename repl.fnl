@@ -1,4 +1,4 @@
-(local js (require "js"))
+(local js (require :js))
 (local fennel (require "fennel/fennel"))
 (local log (fn [...] (: js.global.console :log ...)))
 
@@ -78,8 +78,6 @@
 
 (narrate "You can run any Fennel code here; try this: (print \"Hello world!\")")
 
-(local friend (require :fennelfriend))
-
 (partial fennel.repl {:moduleName "fennel/fennel"
                       :readChunk (fn []
                                    (let [input (coroutine.yield)]
@@ -94,9 +92,8 @@
                                   (set last-value (. xs 1))
                                   (coroutine.resume tutorial))
                       ;; TODO: make errors red
-                      ;; TODO: log errors for analysis?
-                      :onError (fn [_ msg] (printError msg))
+                      :onError (fn [_ msg]
+                                 (log msg)
+                                 (printError msg))
                       :pp (require :fennelview)
-                      :assert-compile friend.assert-compile
-                      :parse-error friend.parse-error
                       :env env})

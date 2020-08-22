@@ -27,7 +27,6 @@ io={open=function(filename)
 end}
 
 package.preload.fennelview = assert(loadfile("fennelview.lua"))
-package.preload.fennelfriend = assert(loadfile("fennelfriend.lua"))
 
 -- Save references to lua baselib functions used
 local _G = _G
