@@ -126,17 +126,22 @@ local repl
 -- loading Fennel at the top level breaks scrolling because browsers
 -- are terrible; so we load when the input element gets focus
 function input.onfocus()
-   -- setting input.onfocus to nil has no effect, somehow
-   if repl ~= nil then return end
-   _G.print("Loading...")
-   local fennel = require("fennel/fennel")
-   package.loaded.fennel = fennel
-   repl = coroutine.create(fennel.dofile("repl.fnl"))
-   assert(coroutine.resume(repl))
-   welcome = "Welcome to Fennel " .. fennel.version ..
-      ", running on Fengari (" .. _VERSION .. ")"
-   _G.print(welcome)
-   _G.printLuacode("Compiled Lua code")
+    -- setting input.onfocus to nil has no effect, somehow
+    if repl ~= nil then return end
+    _G.print("Loading Fennel...")
+    js.global:setTimeout(function()
+        local fennel = require("fennel/fennel")
+       package.loaded.fennel = fennel
+       _G.print("Loading REPL...")
+       js.global:setTimeout(function()
+           repl = coroutine.create(fennel.dofile("repl.fnl"))
+           assert(coroutine.resume(repl))
+           welcome = "Welcome to Fennel " .. fennel.version ..
+              ", running on Fengari (" .. _VERSION .. ")"
+           _G.print(welcome)
+           _G.printLuacode("Compiled Lua code")
+        end)
+    end)
 end
 
 function input.onkeydown(_, e)
