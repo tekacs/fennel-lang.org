@@ -87,6 +87,8 @@
                  "is a good place to start."]
                 [:li {} "The" [:a {:href "/tutorial"} "Tutorial"]
                  "teaches you the basics of the language."]
+                [:li {} "The" [:a {:href "/rationale"} "Rationale"]
+                 "explains the reasoning why Fennel was created."]
                 [:li {} "The" [:a {:href "/lua-primer"} "Lua primer"]
                  "will catch you up if you don't already know Lua."]
                 [:li {} "The" [:a {:href "/reference"} "Reference"] "lists "
