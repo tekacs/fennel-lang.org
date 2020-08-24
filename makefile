@@ -23,6 +23,9 @@ index.html: main.fnl sample.html fennel/fennel
 
 %.html: fennel/%.md ; $(PANDOC) --toc -o $@ $^
 
+# Special overrides; for instance rationale does not need a TOC
+rationale.html: fennel/rationale.md ; $(PANDOC) -o $@ $^
+
 # TODO: for now all main and tags are generated the same;
 # there might be time, when we have "generations" of fennel
 
