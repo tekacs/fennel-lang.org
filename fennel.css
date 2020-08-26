@@ -1,6 +1,7 @@
 body {
     font-family: "Fira Sans","Helvetica Neue",Helvetica,Calibri,Verdana,sans-serif;
     margin: 40px auto;
+    padding: 1em;
     max-width: 44em;
     line-height: 1.6;
     font-size: 14pt;
