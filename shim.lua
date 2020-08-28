@@ -47,7 +47,7 @@ package.loaded.js = {
    }
 }
 
-local coro = require("init").loadReplWithoutWebWorker()
+local coro = require("init")
 
 coroutine.resume(coro, "(print :abc)")
 coroutine.resume(coro, "(var x 1)")
