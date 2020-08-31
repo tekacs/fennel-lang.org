@@ -106,7 +106,7 @@
 
                [:h2 {} "Development"]
                [:p {} "Fennel's repository is on "
-                [:a {:href "https://git.sr.ht/~technomancy/fennel"} "Sourcehut"]
+                [:a {:href "https://sr.ht/~technomancy/fennel"} "Sourcehut"]
                 ", and discussion occurs on "
                 [:a {:href "https://lists.sr.ht/%7Etechnomancy/fennel"}
                  "the mailing list"]
