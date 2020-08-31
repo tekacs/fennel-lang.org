@@ -11,7 +11,7 @@ HTML := tutorial.html api.html reference.html lua-primer.html changelog.html \
 LUA := fennelview.lua
 
 # This requires pandoc 2.0+
-PANDOC=pandoc --syntax-definition fennel-syntax.xml \
+PANDOC ?= pandoc --syntax-definition fennel-syntax.xml \
 	-H head.html -A foot.html -T "Fennel" \
 	--lua-filter=promote-h1-to-title.lua
 
