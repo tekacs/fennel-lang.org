@@ -101,3 +101,21 @@ tt, pre, code, kbd { font-family: "Fira Mono", Inconsolata, monospace; }
 #sample .type {/* font-lock-type-face */ color: #228b22;}
 #sample .variable-name {/* font-lock-variable-name-face */ color: #a0522d;}
 #sample .comment {/* font-lock-comment-face */ color: #b22222;}
+
+/* see fennel */
+#see-fennel textarea {
+    float: left;
+    width: 48%;
+    height: 25em;
+    margin: 0.5em;
+    padding: 0.4em;
+}
+
+#see-fennel button {
+    margin: 0.5em;
+    width: 48%;
+    margin-bottom: 3em;
+    float: left;
+}
+
+hr { margin-top: 2em; clear: both; }
