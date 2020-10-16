@@ -1918,7 +1918,7 @@ package.preload["lang.lexer"] = package.preload["lang.lexer"] or function(...)
   local ASCII_a, ASCII_f, ASCII_z = 97, 102, 122
   local ASCII_A, ASCII_Z = 65, 90
   local END_OF_STREAM = ( - 1)
-  local Reserved_keyword = {["and"] = 1, ["break"] = 2, ["do"] = 3, ["else"] = 4, ["elseif"] = 5, ["end"] = 6, ["false"] = 7, ["for"] = 8, ["function"] = 9, ["if"] = 11, ["in"] = 12, ["local"] = 13, ["nil"] = 14, ["not"] = 15, ["or"] = 16, ["repeat"] = 17, ["return"] = 18, ["then"] = 19, ["true"] = 20, ["until"] = 21, ["while"] = 22, ["goto"] = 10}
+  local Reserved_keyword = {["and"] = 1, ["break"] = 2, ["do"] = 3, ["else"] = 4, ["elseif"] = 5, ["end"] = 6, ["false"] = 7, ["for"] = 8, ["function"] = 9, ["goto"] = 10, ["if"] = 11, ["in"] = 12, ["local"] = 13, ["nil"] = 14, ["not"] = 15, ["or"] = 16, ["repeat"] = 17, ["return"] = 18, ["then"] = 19, ["true"] = 20, ["until"] = 21, ["while"] = 22}
   local uint64, int64 = ffi.typeof("uint64_t"), ffi.typeof("int64_t")
   local complex = ffi.typeof("complex")
   local Token_symbol = {TK_concat = "..", TK_eof = "<eof>", TK_eq = "==", TK_ge = ">=", TK_le = "<=", TK_ne = "~="}
@@ -5129,7 +5129,7 @@ package.preload["fennel"] = package.preload["fennel"] or function(...)
       walk((custom_iterator or pairs), nil, nil, root)
       return root
     end
-    local lua_keywords = {"and", "break", "do", "else", "elseif", "end", "false", "for", "function", "if", "in", "local", "nil", "not", "or", "repeat", "return", "then", "true", "until", "while"}
+    local lua_keywords = {"and", "break", "do", "else", "elseif", "end", "false", "for", "function", "if", "in", "local", "nil", "not", "or", "repeat", "return", "then", "true", "until", "while", "goto"}
     for i, v in ipairs(lua_keywords) do
       lua_keywords[v] = i
     end
@@ -5556,25 +5556,27 @@ local function compile(rdr, filename)
   local ast_tree = parse(ast_builder, ls)
   return letter(compiler(nil, ast_tree))
 end
-local filename = arg[1]
-local f = (filename and io.open(filename))
-if f then
-  f:close()
-  for _, code in ipairs(compile(reader.file(filename), filename)) do
-    print(fnlfmt.fnlfmt(code))
+if ((debug and debug.getinfo) and (debug.getinfo(3) == nil)) then
+  local filename = arg[1]
+  local f = (filename and io.open(filename))
+  if f then
+    f:close()
+    for _, code in ipairs(compile(reader.file(filename), filename)) do
+      print(fnlfmt.fnlfmt(code))
+    end
+    return nil
+  else
+    print(("Usage: %s LUA_FILENAME"):format(arg[0]))
+    print("Compiles LUA_FILENAME to Fennel and prints output.")
+    return os.exit(1)
   end
-  return nil
-elseif (arg[1] == false) then
-  local function _1_(str)
+else
+  local function _1_(str, source)
     local out = {}
-    for _, code in ipairs(compile(reader.string(str), "*source")) do
+    for _, code in ipairs(compile(reader.string(str), (source or "*source"))) do
       table.insert(out, fnlfmt.fnlfmt(code))
     end
-    return out
+    return table.concat(out, "\n")
   end
   return _1_
-else
-  print(("Usage: %s LUA_FILENAME"):format(arg[0]))
-  print("Compiles LUA_FILENAME to Fennel and prints output.")
-  return os.exit(1)
 end

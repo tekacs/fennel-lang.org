@@ -119,3 +119,13 @@ tt, pre, code, kbd { font-family: "Fira Mono", Inconsolata, monospace; }
 }
 
 hr { margin-top: 2em; clear: both; }
+
+#see-fennel #out {
+    color: #dd1111;
+    clear: both;
+    font-size: 80%;
+    padding: 1em;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+}
