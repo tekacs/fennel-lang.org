@@ -124,11 +124,11 @@
 
                [:hr {}]
                [:p {} "Fennel is copyright © 2016-2020 Calvin Rose and "
-                "contributors."
+                "contributors and is"
                 ;; TODO: fix contributor link
                 ;; [:a {:href "https://git.sr.ht/~technomancy/fennel/contributors"}
                 ;;  "contributors."]
                 "released under the MIT/X11 license. "
-                "This website is under the same terms and also stored on"
                 [:a {:href "https://git.sr.ht/~technomancy/fennel-lang.org"}
-                 "Sourcehut."]]]]))
+                 "This website"]
+                "is under the same terms."]]]))
