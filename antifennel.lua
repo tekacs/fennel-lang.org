@@ -1,4 +1,3 @@
-#!/usr/bin/env luajit
 package.preload["fnlfmt"] = package.preload["fnlfmt"] or function(...)
   local view = require("fennelview")
   local function identify_line(line, pos, stack)
