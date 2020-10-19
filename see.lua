@@ -9,7 +9,7 @@ bit = {band = function(a,b) return a & b end,
        rshift=function(a,b) return a >> b end}
 unpack = table.unpack
 
-function print(...) js.global.console.log(...) end
+function print(...) js.global.console:log(...) end
 
 local document = js.global.document
 local compile_fennel = document:getElementById("compile-fennel")
@@ -24,16 +24,14 @@ local status = function(msg, success)
    out.style.color = success and "black" or "#dd1111"
 end
 
-local done = function(antifennel)
-   local fennel = require("fennel")
-
+local done = function(fennel_compile, antifennel)
    compile_fennel.onclick = function()
-      local ok, code = pcall(fennel.compileString, fennel_source.value)
+      local ok, code = pcall(fennel_compile, fennel_source.value)
       if ok then
          lua_source.value = code
          status("Compiled Fennel to Lua.", true)
       else
-         status("Fennel: " .. code, false)
+         status("Fennel: " .. tostring(code), false)
       end
    end
 
@@ -50,19 +48,40 @@ local done = function(antifennel)
                    " strange-looking code when\nusing constructs that Fennel" ..
                    " does not support natively, like early returns.", true)
       else
-         status("Lua: " .. code, false)
+         status("Lua: " .. tostring(code), false)
       end
    end
 
-   out.innerHTML = "Loaded Fennel " .. fennel.version .. " in " .. _VERSION
+   out.innerHTML = "Loaded Fennel and Antifennel."
 end
 
 local started = false
 
 local init_worker = function()
    local worker = js.new(js.global.Worker, "/see-worker.js")
-   -- TODO: the done function here appears to never get called
-   js.global.window.done = done
+   local send = function(isFennel, code)
+      worker:postMessage({isFennel, code})
+      return assert(coroutine.yield())
+   end
+   local fennel = function(code) return send(true, code) end
+   local antifennel = function(code) return send(false, code) end
+
+   done(fennel, antifennel)
+   local orig_f, orig_l = compile_fennel.onclick, compile_lua.onclick
+   compile_fennel.onclick = function () coroutine.wrap(orig_f)() end
+   compile_lua.onclick = function () coroutine.wrap(orig_l)() end
+
+   worker.onmessage = function(_, e)
+      local isFennel, ok, result = unpack(e.data)
+      local coro = isFennel and compile_fennel.onclick or compile_lua.onclick
+      js.global.console.log("result", result)
+      coroutine.resume(coro, ok, result)
+   end
+end
+
+local load_direct = function()
+   local antifennel = dofile("antifennel.lua")
+   return done(require("fennel").compileString, antifennel)
 end
 
 local init = function()
@@ -70,12 +89,12 @@ local init = function()
    started = true
    out.innerHTML = "Loading..."
 
-   if false and js.global.Worker then
+   if js.global.Worker then
       init_worker()
    elseif js.global.setTimeout then
-      js.global:setTimeout(function() return done(dofile("antifennel.lua")) end)
+      js.global:setTimeout(load_direct)
    else
-      done(dofile("antifennel.lua"))
+      return load_direct()
    end
 end
 
