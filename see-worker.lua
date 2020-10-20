@@ -9,10 +9,17 @@ local antifennel = dofile("antifennel.lua")
 local fennel = require("fennel")
 local js = require("js")
 
-js.global.onmessage = function(e)
-   local isFennel, code = unpack(e.data)
+js.global.onmessage = function(_, e)
+   local isFennel = e.data:match("^ ")
    local compiler = isFennel and fennel.compileString or antifennel
-   local ok, result = pcall(compiler, code)
-   js.global.console:log("worker", ok, result)
-   js.global:postMessage({ok, result})
+   local ok, result = pcall(compiler, e.data)
+   if not ok then
+      js.global:postMessage(result .. "\n")
+   elseif isFennel then
+      js.global:postMessage(result .. " ")
+   else
+      js.global:postMessage(result .. "\t")
+   end
 end
+
+js.global:postMessage("Loaded Fennel " .. fennel.version .. " in " .. _VERSION)

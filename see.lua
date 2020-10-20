@@ -24,14 +24,19 @@ local status = function(msg, success)
    out.style.color = success and "black" or "#dd1111"
 end
 
-local done = function(fennel_compile, antifennel)
+local anti_msg = "Compiled Lua to Fennel.\n\n"..
+   "Note that compiling Lua to Fennel can result in some" ..
+   " strange-looking code when\nusing constructs that Fennel" ..
+   " does not support natively, like early returns."
+
+local done = function(fennel, antifennel)
    compile_fennel.onclick = function()
-      local ok, code = pcall(fennel_compile, fennel_source.value)
+      local ok, code = pcall(fennel.compileString, fennel_source.value)
       if ok then
          lua_source.value = code
          status("Compiled Fennel to Lua.", true)
       else
-         status("Fennel: " .. tostring(code), false)
+         status(tostring(code), false)
       end
    end
 
@@ -43,16 +48,29 @@ local done = function(fennel_compile, antifennel)
       local ok, code = pcall(antifennel, lua_source.value)
       if ok then
          fennel_source.value = code
-         status("Compiled Lua to Fennel.\n\n"..
-                   "Note that compiling Lua to Fennel can result in some" ..
-                   " strange-looking code when\nusing constructs that Fennel" ..
-                   " does not support natively, like early returns.", true)
+         status(anti_msg, true)
       else
-         status("Lua: " .. tostring(code), false)
+         status(tostring(code), false)
       end
    end
 
-   out.innerHTML = "Loaded Fennel and Antifennel."
+   out.innerHTML = "Loaded Fennel " .. fennel.version .. " in " .. _VERSION
+end
+
+fennel_source.onkeydown = function(_, e)
+   if not e then e = js.global.event end
+   if (e.key or e.which) == "Enter" and e.ctrlKey then
+      compile_fennel.onclick()
+      return false
+   end
+end
+
+lua_source.onkeydown = function(_,e)
+   if not e then e = js.global.event end
+   if (e.key or e.which) == "Enter" and e.ctrlKey then
+      compile_lua.onclick()
+      return false
+   end
 end
 
 local started = false
@@ -60,28 +78,39 @@ local started = false
 local init_worker = function()
    local worker = js.new(js.global.Worker, "/see-worker.js")
    local send = function(isFennel, code)
-      worker:postMessage({isFennel, code})
-      return assert(coroutine.yield())
+      -- we can't send tables to workers, so we have to encode everything in
+      -- strings. use an initial space for Fennel and initial tab for Lua code.
+      local prefix = isFennel and " " or "\t"
+      worker:postMessage(prefix .. code)
    end
-   local fennel = function(code) return send(true, code) end
-   local antifennel = function(code) return send(false, code) end
-
-   done(fennel, antifennel)
-   local orig_f, orig_l = compile_fennel.onclick, compile_lua.onclick
-   compile_fennel.onclick = function () coroutine.wrap(orig_f)() end
-   compile_lua.onclick = function () coroutine.wrap(orig_l)() end
 
    worker.onmessage = function(_, e)
-      local isFennel, ok, result = unpack(e.data)
-      local coro = isFennel and compile_fennel.onclick or compile_lua.onclick
-      js.global.console.log("result", result)
-      coroutine.resume(coro, ok, result)
+      out.innerHTML = e.data -- loaded message
+      -- don't set up handlers until we've loaded
+      compile_fennel.onclick = function() send(true, fennel_source.value) end
+      compile_lua.onclick = function() send(false, lua_source.value) end
+
+      worker.onmessage = function(_, event)
+         -- because we can't send tables as events, we encode the type of the
+         -- message in the last character of the string.
+         if event.data:match(" $") then
+            lua_source.value = event.data
+            status("Compiled Fennel to Lua.", true)
+         elseif event.data:match("\t$") then
+            fennel_source.value = event.data
+            status(anti_msg, true)
+         else
+            status(event.data, false)
+         end
+      end
    end
+
+   worker.onerror = function(_, event) status(event.data, false) end
 end
 
 local load_direct = function()
    local antifennel = dofile("antifennel.lua")
-   return done(require("fennel").compileString, antifennel)
+   return done(require("fennel"), antifennel)
 end
 
 local init = function()
@@ -103,6 +132,5 @@ compile_lua.onclick = init
 fennel_source.onfocus = init
 lua_source.onfocus = init
 
--- TODO: keyboard shortcuts
 -- TODO: multiple Fennel versions?
 -- TODO: samples
