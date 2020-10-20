@@ -111,11 +111,14 @@ tt, pre, code, kbd { font-family: "Fira Mono", Inconsolata, monospace; }
     padding: 0.4em;
 }
 
-#see-fennel button {
+#see-fennel button, #see-fennel select {
     margin: 0.5em;
     width: 48%;
-    margin-bottom: 3em;
     float: left;
+}
+
+#see-fennel select {
+    margin-bottom: 3em;
 }
 
 hr { margin-top: 2em; clear: both; }

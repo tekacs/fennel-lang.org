@@ -68,7 +68,7 @@ clean: cleantagdirs ; rm -f $(HTML) index.html $(LUA)
 
 upload: $(HTML) $(LUA) $(TAGDIRS) index.html init.lua repl.fnl fennel.css \
 		fengari-web.js repl-worker.js repl-worker.lua .htaccess fennel \
-		see.html see.lua antifennel
+		see.html see.lua antifennel.lua see-worker.lua see-worker.js
 	rsync -r $^ fenneler@fennel-lang.org:fennel-lang.org/
 
 conf/%.html: conf/%.fnl fennel/fennel ; fennel/fennel $< > $@
