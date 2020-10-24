@@ -46,7 +46,7 @@ local anti_msg = "Compiled Lua to Fennel.\n\n"..
    " strange-looking code when\nusing constructs that Fennel" ..
    " does not support natively, like early returns."
 
-local init_worker = function()
+local init_worker = function(auto_click)
    -- TODO: multiple Fennel versions?
    local worker = js.new(js.global.Worker, "/see-worker.js")
    local send = function(isFennel, code)
@@ -75,10 +75,11 @@ local init_worker = function()
             status(event.data, false)
          end
       end
+      if auto_click and auto_click.onclick then auto_click.onclick() end
    end
 end
 
-local load_direct = function()
+local load_direct = function(auto_click)
    local antifennel = dofile("antifennel.lua")
    local fennel = require("fennel")
    compile_fennel.onclick = function()
@@ -106,21 +107,22 @@ local load_direct = function()
    end
 
    out.innerHTML = "Loaded Fennel " .. fennel.version .. " in " .. _VERSION
+   if auto_click and auto_click.onclick then auto_click.onclick() end
 end
 
 local started = false
 
-local init = function()
+local init = function(auto_click)
    if started then return end
    started = true
    out.innerHTML = "Loading..."
 
    if js.global.Worker then
-      init_worker()
+      init_worker(auto_click)
    elseif js.global.setTimeout then
-      js.global:setTimeout(load_direct)
+      js.global:setTimeout(function() load_direct(auto_click) end)
    else
-      return load_direct()
+      return load_direct(auto_click)
    end
 end
 
@@ -239,3 +241,17 @@ end
 
 init_samples("sample-fennel", fennel_samples, fennel_source)
 init_samples("sample-lua", lua_samples, lua_source)
+
+if js.global.URLSearchParams then
+   local params = js.new(js.global.URLSearchParams, document.location.search)
+   local fennel_param = params:get("fennel")
+   local lua_param = params:get("lua")
+
+   if tostring(fennel_param) ~= "null" then
+      fennel_source.value = fennel_param
+      init(compile_fennel)
+   elseif tostring(lua_param) ~= "null" then
+      lua_source.value = lua_param
+      init(compile_lua)
+   end
+end
