@@ -81,6 +81,10 @@
                 [:div {:class "code code-flex" :id "lua-pane"}
                  [:code {:id "compiled-lua"}]]]
 
+               [:p {} "Curious about how a piece of code compiles?"
+                [:a {:href "/see"} "See for yourself"] " with a side-by-side"
+                " view how Fennel turns into Lua and vice-versa."]
+
                [:h2 {} "Documentation"]
                [:ul {}
                 [:li {} "The" [:a {:href "/setup"} "Setup guide"]
