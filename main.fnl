@@ -12,7 +12,7 @@
                        :href "https://code.cdn.mozilla.net/fonts/fira.css"}]
                [:title {} "the Fennel programming language"]]
               [:body {}
-               [:h1 {} "Fennel"]
+               [:h1 {} "Fennel" [:img {:src "logo.svg"}]]
                [:p {} "Fennel is a programming language that brings together "
                 "the speed, simplicity, and reach of"
                 [:a {:href "https://www.lua.org"} "Lua"]

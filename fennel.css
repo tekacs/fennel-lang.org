@@ -9,6 +9,7 @@ body {
 }
 
 h1 { text-align: center; }
+h1 img { height: 2em; margin: -0.5em 0.2em; }
 
 a { color: #0d98ba; }
 a:hover { color: #0c7090; }
