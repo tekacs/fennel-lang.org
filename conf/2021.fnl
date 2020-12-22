@@ -3,7 +3,7 @@
 
 (-> [:html {:lang "en"}
      [:head {} [:title {} "FennelConf 2021"]
-      (unpack style)]
+      (table.unpack style)]
      [:body {}
       [:h1 {} "FennelConf 2021"]
       [:p {} [:b {} "Location:"] "Portland, OR"]

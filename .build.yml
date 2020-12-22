@@ -11,4 +11,4 @@ tasks:
 - upload: |
     cd fennel-lang.org
     cp .known_hosts ~/.ssh/known_hosts
-    make build upload
+    make build uploadconf upload

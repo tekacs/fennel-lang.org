@@ -3,7 +3,7 @@
 
 (print (html [:html {:lang "en"}
               [:head {} [:title {} "FennelConf 2018"]
-               (unpack style)]
+               (table.unpack style)]
               [:body {}
                [:h1 {} "FennelConf 2018"]
                [:p {} [:b {} "Location:"] "Hawthorne Lucky Lab, Portland, OR"]

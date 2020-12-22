@@ -79,7 +79,7 @@ conf/signup.cgi: conf/signup.fnl fennel/fennel
 	fennel/fennel --compile $< >> $@
 	chmod 755 $@
 
-uploadconf: conf/*.html conf/*.jpg conf/.htaccess fennelview.lua conf/signup.cgi
+uploadconf: conf/2020.html conf/2021.html conf/*.jpg conf/.htaccess fennelview.lua conf/signup.cgi
 	rsync $^ fenneler@fennel-lang.org:conf.fennel-lang.org/
 
 uploadv: conf/v
