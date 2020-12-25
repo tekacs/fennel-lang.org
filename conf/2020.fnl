@@ -13,7 +13,16 @@
        "of show-and-tell. Come share what you have been building in "
        "Fennel or just come see what people have to show off! "]
       [:p {} "To sign up, email phil@hagelb.org or contact technomancy on "
-       "IRC. Each person can get a slot of 10-15 minutes to show their code."]
+       "IRC. Each person can get a slot of 10-15 minutes to show their code. "
+       "There is no expectation that presentations should be particularly "
+       "polished or fancy. No slides."]
+      [:p {} "Examples of things you could talk about:"]
+      [:ul {}
+       [:li {} "a game"]
+       [:li {} "small command-line tools"]
+       [:li {} "programmatic art/music"]
+       [:li {} "integrating Fennel with a larger application"]]
+      [:p {} "Yes, FennelConf 2020 will take place in 2021."]
       [:hr {}]
       [:h3 {} "See how much fun we had in: "
        [:a {:href "/2018"} "2018"]
