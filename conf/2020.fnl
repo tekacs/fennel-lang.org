@@ -16,12 +16,14 @@
        "IRC. Each person can get a slot of 10-15 minutes to show their code. "
        "There is no expectation that presentations should be particularly "
        "polished or fancy. No slides."]
-      [:p {} "Examples of things you could talk about:"]
       [:ul {}
-       [:li {} "a game"]
-       [:li {} "small command-line tools"]
-       [:li {} "programmatic art/music"]
-       [:li {} "integrating Fennel with a larger application"]]
+       [:li {} "Jeremy Penner - Interactively Programming the Apple ][ "
+        "With HoneyLisp"]
+       [:li {} "Phil Hagelberg -  Structural editing"]
+       [:li {} "Ramsey Nasser -  making some noise: integrating Fennel "
+        "into the renoise digital audio workstation"]
+       [:li {} "Jesse Wertheim: TBD"]
+       [:li {} "Dan Kurtz: Fireverk"]]
       [:p {} "Yes, FennelConf 2020 will take place in 2021."]
       [:hr {}]
       [:h3 {} "See how much fun we had in: "
