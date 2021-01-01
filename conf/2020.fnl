@@ -19,11 +19,14 @@
       [:ul {}
        [:li {} "Jeremy Penner - Interactively Programming the Apple ][ "
         "With HoneyLisp"]
+       [:li {} "Andrey Orst - Bringing Clojure's seq-mantics into Fennel with Cljlib"]
        [:li {} "Phil Hagelberg -  Structural editing"]
        [:li {} "Ramsey Nasser -  making some noise: integrating Fennel "
         "into the renoise digital audio workstation"]
-       [:li {} "Jesse Wertheim: TBD"]
-       [:li {} "Dan Kurtz: Fireverk"]]
+       [:li {} "Jesse Wertheim - Working the internals - metadata manipulation "
+        "and AST serialization"]
+       [:li {} "Dan Kurtz - Fireverk"]
+       [:li {} "Will Sinatra - toAPK -a fennel"]]
       [:p {} "Yes, FennelConf 2020 will take place in 2021."]
       [:hr {}]
       [:h3 {} "See how much fun we had in: "
