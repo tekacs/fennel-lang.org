@@ -8,8 +8,8 @@
       [:h1 {} "FennelConf 2020"]
       [:p {} [:b {} "Location: online"]]
       [:p {} [:b {} "Time:"] "2021-01-02T22:00:00Z (Saturday @ 14:00 US Pacific)"]
-      [:p {} "This year FennelConf was an online session of show-and-tell."]
-      [:h3 {} "Schedule"]
+      [:p {} "This year FennelConf was an online session of show-and-tell."
+       " Talks were short 10-15 minute demos rather than full-length presentations."]
       [:ul {}
        [:li {} "Jeremy Penner - Interactively Programming the Apple ][ "
         "With HoneyLisp"
@@ -28,7 +28,7 @@
         "[" [:a {:href "/v/fennelconf-2020-kurtz.mp4"} "video"] "]"]
        [:li {} "Will Sinatra - toAPK -a fennel"
         "[" [:a {:href "/v/fennelconf-2020-wsinatra.mp4"} "video"] "]"]]
-      [:p {} "Yes, FennelConf 2020 will take place in 2021."]
+      [:p {} "Yes, FennelConf 2020 took place in 2021."]
       [:hr {}]
       [:h3 {} "See how much fun we had in: "
        [:a {:href "/2018"} "2018"]
