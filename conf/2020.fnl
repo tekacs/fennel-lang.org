@@ -6,27 +6,28 @@
       (table.unpack style)]
      [:body {}
       [:h1 {} "FennelConf 2020"]
-      [:p {} [:b {} "Location:"]
-       [:a {:href "https://meet.jit.si/technomancy"} "online"]]
+      [:p {} [:b {} "Location: online"]]
       [:p {} [:b {} "Time:"] "2021-01-02T22:00:00Z (Saturday @ 14:00 US Pacific)"]
-      [:p {} "This year FennelConf will simply be an online session "
-       "of show-and-tell. Come share what you have been building in "
-       "Fennel or just come see what people have to show off! "]
-      [:p {} "To sign up, email phil@hagelb.org or contact technomancy on "
-       "IRC. Each person can get a slot of 10-15 minutes to show their code. "
-       "There is no expectation that presentations should be particularly "
-       "polished or fancy. No slides."]
+      [:p {} "This year FennelConf was an online session of show-and-tell."]
+      [:h3 {} "Schedule"]
       [:ul {}
        [:li {} "Jeremy Penner - Interactively Programming the Apple ][ "
-        "With HoneyLisp"]
-       [:li {} "Andrey Orst - Bringing Clojure's seq-mantics into Fennel with Cljlib"]
-       [:li {} "Phil Hagelberg -  Structural editing"]
+        "With HoneyLisp"
+        "[" [:a {:href "/v/fennelconf-2020-spindleyq.mp4"} "video"] "]"]
+       [:li {} "Andrey Orst - Bringing Clojure's seq-mantics into Fennel with Cljlib"
+        "[" [:a {:href "/v/fennelconf-2020-andreyorst.mp4"} "video"] "]"]
+       [:li {} "Phil Hagelberg -  Structural editing"
+        "[" [:a {:href "/v/fennelconf-2020-technomancy.mp4"} "video"] "]"]
        [:li {} "Ramsey Nasser -  making some noise: integrating Fennel "
-        "into the renoise digital audio workstation"]
+        "into the renoise digital audio workstation"
+        "[" [:a {:href "/v/fennelconf-2020-nasser.mp4"} "video"] "]"]
        [:li {} "Jesse Wertheim - Working the internals - metadata manipulation "
-        "and AST serialization"]
-       [:li {} "Dan Kurtz - Fireverk"]
-       [:li {} "Will Sinatra - toAPK -a fennel"]]
+        "and AST serialization"
+        "[" [:a {:href "/v/fennelconf-2020-jaawerth.mp4"} "video"] "]"]
+       [:li {} "Dan Kurtz - Fireverk"
+        "[" [:a {:href "/v/fennelconf-2020-kurtz.mp4"} "video"] "]"]
+       [:li {} "Will Sinatra - toAPK -a fennel"
+        "[" [:a {:href "/v/fennelconf-2020-wsinatra.mp4"} "video"] "]"]]
       [:p {} "Yes, FennelConf 2020 will take place in 2021."]
       [:hr {}]
       [:h3 {} "See how much fun we had in: "
