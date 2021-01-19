@@ -21,6 +21,9 @@ index.html: main.fnl sample.html fennel/fennel
 	fennel/fennel main.fnl $(TAGDIRS) > index.html
 %.lua: fennel/%.fnl fennel/fennel ; fennel/fennel --compile $< > $@
 
+fennelview.lua: fennel/fennel fennel/src/fennel/view.fnl
+	fennel/fennel --compile fennel/src/fennel/view.fnl > $@
+
 %.html: fennel/%.md ; $(PANDOC) --toc -o $@ $^
 
 # Special overrides; for instance rationale does not need a TOC
@@ -33,8 +36,6 @@ rationale.html: fennel/rationale.md ; $(PANDOC) -o $@ $^
 %/repl.md: repl.md ; cp $^ $@
 %/init.lua: init.lua ; cp $^ $@
 %/repl.fnl: repl.fnl ; cp $^ $@
-%/fennelview.lua: %/fennel/fennelview.fnl %/fennel/fennel
-	$*/fennel/fennel --compile $< > $@
 
 v%/fennel:
 	git clone --branch $* fennel $@
@@ -57,7 +58,7 @@ tagdirs: ; $(foreach tagdir, $(TAGDIRSS), mkdir -p ${tagdir})
 cleantagdirs: ; $(foreach tagdir, $(TAGDIRS), rm -rf ${tagdir})
 tags: tagdirs $(foreach tagdir, $(TAGDIRS), ${tagdir}/fennel)
 TAGDOCS := $(foreach tagdir, $(TAGDIRS), \
-	$(foreach file, index.html init.lua repl.fnl fennelview.lua, \
+	$(foreach file, index.html init.lua repl.fnl, \
 		${tagdir}/${file}))
 
 build: html lua tagdocs
