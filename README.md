@@ -20,7 +20,7 @@ The `conf/` subdirectory contains the code for various years of the
 The HTML for the site is
 [built and uploaded in the CI](https://builds.sr.ht/~technomancy/fennel-lang.org).
 
-Copyright © 2018-2020 Phil Hagelberg and contributors
+Copyright © 2018-2021 Phil Hagelberg and contributors
 
 Released under the MIT/X11 license; same as Fennel
 
