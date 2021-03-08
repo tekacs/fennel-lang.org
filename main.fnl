@@ -127,7 +127,7 @@
                 " for collecting ideas."]
 
                [:hr {}]
-               [:p {} "Fennel is copyright © 2016-2020 Calvin Rose and "
+               [:p {} "Fennel is copyright © 2016-2021 Calvin Rose and "
                 "contributors and is"
                 ;; TODO: fix contributor link
                 ;; [:a {:href "https://git.sr.ht/~technomancy/fennel/contributors"}
